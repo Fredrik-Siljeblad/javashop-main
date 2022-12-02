@@ -33,9 +33,9 @@ public class CategoryService {
         return repository.findById(id).get();
     }
 
-    /*public void save(Category product1) {
+    public void save(Category product1) {
         repository.save(product1);
-    }*/
+    }
 
     public Category addCategory (String name, String description) {
         List<Category> existingCategories = getAll();
