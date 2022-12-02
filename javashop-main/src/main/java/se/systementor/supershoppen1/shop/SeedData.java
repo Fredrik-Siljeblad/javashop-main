@@ -36,9 +36,9 @@ public class SeedData implements CommandLineRunner {
         // adminAccount();
         // userAccount();
         // category();
-        exampleCategories();
-        exampleProducts();
-        exampleUsers();
+        //exampleCategories();
+        //exampleProducts();
+        //exampleUsers();
     }
 
 
