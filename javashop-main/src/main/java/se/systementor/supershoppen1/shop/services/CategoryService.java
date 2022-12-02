@@ -9,6 +9,7 @@ import se.systementor.supershoppen1.shop.model.Category;
 import se.systementor.supershoppen1.shop.model.CategoryRepository;
 import se.systementor.supershoppen1.shop.model.Product;
 import se.systementor.supershoppen1.shop.model.ProductRepository;
+import se.systementor.supershoppen1.shop.SeedData;
 
 @Service
 public class CategoryService {
@@ -35,6 +36,19 @@ public class CategoryService {
 
     public void save(Category product1) {
         repository.save(product1);
+    }
+
+    public void addCategory (String name, String description) {
+        List<Category> existingCategories = getAll();
+        for (Category cat : existingCategories) {
+            if (cat.getName().equalsIgnoreCase(name)) {
+                return;
+            }
+            Category newCat = new Category();
+            newCat.setName(name);
+            newCat.setDescription(description);
+            save(newCat);
+        }
     }
 }
 
