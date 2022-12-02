@@ -2,14 +2,13 @@ package se.systementor.supershoppen1.shop.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import se.systementor.supershoppen1.shop.model.Category;
 import se.systementor.supershoppen1.shop.model.CategoryRepository;
-import se.systementor.supershoppen1.shop.model.Product;
-import se.systementor.supershoppen1.shop.model.ProductRepository;
-import se.systementor.supershoppen1.shop.SeedData;
+
 
 @Service
 public class CategoryService {
@@ -34,21 +33,28 @@ public class CategoryService {
         return repository.findById(id).get();
     }
 
-    public void save(Category product1) {
+    /*public void save(Category product1) {
         repository.save(product1);
-    }
+    }*/
 
-    public void addCategory (String name, String description) {
+    public Category addCategory (String name, String description) {
         List<Category> existingCategories = getAll();
         for (Category cat : existingCategories) {
             if (cat.getName().equalsIgnoreCase(name)) {
-                return;
+                return null;
             }
-            Category newCat = new Category();
-            newCat.setName(name);
-            newCat.setDescription(description);
-            save(newCat);
         }
+        Category newCat = new Category();
+        newCat.setName(name);
+        newCat.setDescription(description);
+        return repository.save(newCat);
+    }
+
+    public Category editCategory(Integer id, String name, String description) {
+        Category categoryToEdit = repository.findById(id).get();
+        categoryToEdit.setName(name);
+        categoryToEdit.setDescription(description);
+        return repository.save(categoryToEdit);
     }
 }
 
