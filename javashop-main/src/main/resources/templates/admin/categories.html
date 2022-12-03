@@ -9,188 +9,32 @@
 </head>
 <body>
 <div class="container">
-    <img src="/images/Categories/beverages.jpeg" class="img-thumbnail" alt="Responsive image">
-    <h1 th:text ="${category1}"></h1>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Stock level</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="product : ${beverages}">
-            <td th:text="${product.getName()}"></td>
-            <td th:text="${product.getPrice()}"></td>
-            <td th:text="${product.getStockLevel()}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <tr th:each = "category : ${categories} ">
+        <h1 th:text = "${category.category.getName()}"></h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Stock level</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${category.getProductList()}">
+                <td th:text="${product.getName()}"></td>
+                <td th:text="${product.getPrice()}"></td>
+                <td th:text="${product.getStockLevel()}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </tr>
+
 
 </div>
 
-<div class="container">
-    <img src="/images/Categories/condiments.jpeg" class="img-thumbnail" alt="Responsive image">
-    <h1 th:text ="${category2}"></h1>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Stock level</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="product : ${condiments}">
-            <td th:text="${product.getName()}"></td>
-            <td th:text="${product.getPrice()}"></td>
-            <td th:text="${product.getStockLevel()}"></td>
-        </tr>
-        </tbody>
-    </table>
 
-</div>
-
-<div class="container">
-    <img src="/images/Categories/Confections.jpeg" class="img-thumbnail" alt="Responsive image">
-    <h1 th:text ="${category3}"></h1>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Stock level</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="product : ${confections}">
-            <td th:text="${product.getName()}"></td>
-            <td th:text="${product.getPrice()}"></td>
-            <td th:text="${product.getStockLevel()}"></td>
-        </tr>
-        </tbody>
-    </table>
-
-</div>
-
-<div class="container">
-    <img src="/images/Categories/dairyproducts.jpeg" class="img-thumbnail" alt="Responsive image">
-    <h1 th:text ="${category4}"></h1>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Stock level</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="product : ${dairyproducts}">
-            <td th:text="${product.getName()}"></td>
-            <td th:text="${product.getPrice()}"></td>
-            <td th:text="${product.getStockLevel()}"></td>
-        </tr>
-        </tbody>
-    </table>
-
-</div>
-
-<div class="container">
-    <img src="/images/Categories/grainsandcereals.jpeg" class="img-thumbnail" alt="Responsive image">
-    <h1 th:text ="${category5}"></h1>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Stock level</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="product : ${grainscereals}">
-            <td th:text="${product.getName()}"></td>
-            <td th:text="${product.getPrice()}"></td>
-            <td th:text="${product.getStockLevel()}"></td>
-        </tr>
-        </tbody>
-    </table>
-
-</div>
-
-<div class="container">
-    <img src="/images/Categories/meatandpoultry.jpeg" class="img-thumbnail" alt="Responsive image">
-    <h1 th:text ="${category6}"></h1>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Stock level</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="product : ${meatpoultry}">
-            <td th:text="${product.getName()}"></td>
-            <td th:text="${product.getPrice()}"></td>
-            <td th:text="${product.getStockLevel()}"></td>
-        </tr>
-        </tbody>
-    </table>
-
-</div>
-
-<div class="container">
-    <img src="/images/Categories/produce.jpeg" class="img-thumbnail" alt="Responsive image">
-    <h1 th:text ="${category7}"></h1>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Stock level</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="product : ${produce}">
-            <td th:text="${product.getName()}"></td>
-            <td th:text="${product.getPrice()}"></td>
-            <td th:text="${product.getStockLevel()}"></td>
-        </tr>
-        </tbody>
-    </table>
-
-</div>
-
-<div class="container">
-    <img src="/images/Categories/seafood.gif" class="img-thumbnail" alt="Responsive image">
-    <h1 th:text ="${category8}"></h1>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Stock level</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="product : ${seafood}">
-            <td th:text="${product.getName()}"></td>
-            <td th:text="${product.getPrice()}"></td>
-            <td th:text="${product.getStockLevel()}"></td>
-        </tr>
-        </tbody>
-    </table>
-
-</div>
 
 
 

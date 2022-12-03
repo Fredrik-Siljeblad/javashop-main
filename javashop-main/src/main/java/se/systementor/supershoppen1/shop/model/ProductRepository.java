@@ -8,5 +8,6 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
 
 
     List<Product> findProductByCategoryId(Integer id);
-    
+
+
 }
