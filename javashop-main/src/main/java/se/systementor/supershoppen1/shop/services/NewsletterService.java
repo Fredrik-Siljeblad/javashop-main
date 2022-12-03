@@ -64,6 +64,7 @@ public class NewsletterService {
             return "Newsletter was already sent " + nl.getSentDate().toString() +".";
         }else{
             nl.setSentDate(LocalDateTime.now());
+            nl.setReceived(subscriptionsService.getSignedUp());
             //TODO: Add actual functionality for sending out mail here!
             return "Sending Newsletter out. " + nl.getSentDate().toString() +".";
         }
