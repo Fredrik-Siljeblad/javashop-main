@@ -1,7 +1,10 @@
 package se.systementor.supershoppen1.shop.controller;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,10 +36,21 @@ public class AdminController {
     @GetMapping(path="/admin/categories")
     String showAdminCategories(Model model)
     {
+        List<String> results = new ArrayList<String>();
+        //Get the absolute path of ur image/Categories folder
+        File[] files = new File("/Users/williamle/Documents/GitHub/javashop-main/javashop-main/src/main/resources/static/images/Categories").listFiles();
+        if (files != null){
+            for (File file : files) {
+                if (file.isFile()) {
+                    results.add(file.getPath().substring(87));
+                }
+            }
+        }
+        List<String> sortedResult = results.stream().sorted().toList();
         List<Category> categories = categoryService.getAll();
         List<CategoryAndProducts> list = new ArrayList<>()  ;
-        for (int i = 1; i <= categories.size(); i++){
-            list.add(new CategoryAndProducts(categoryService.get(i),productService.findAllProductsByCategoryId(i)));
+        for (int i = 1; i < categories.size() + 1; i++){
+            list.add(new CategoryAndProducts(categoryService.get(i),productService.findAllProductsByCategoryId(i), sortedResult.get(i-1)));
         }
         model.addAttribute("categories", list);
         return "admin/categories";

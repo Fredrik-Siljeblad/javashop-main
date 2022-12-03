@@ -7,16 +7,21 @@ import java.util.List;
 
 public class CategoryAndProducts {
 
+    private String imagePath;
     private Category category;
     private List<Product> productList;
 
 
-    public CategoryAndProducts(Category category, List<Product> productList){
-        this.category = category;
-        this.productList = productList;
-
+    public String getImagePath() {
+        return imagePath;
     }
 
+    public CategoryAndProducts(Category category, List<Product> productList, String imagePath){
+        this.category = category;
+        this.productList = productList;
+        this.imagePath = imagePath;
+
+    }
 
     public Category getCategory() {
         return category;
