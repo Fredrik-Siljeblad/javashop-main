@@ -38,17 +38,14 @@ public class CategoryService {
         repository.save(product1);
     }
 
-    public Category addCategory (String name, String description) {
+    public Category addCategory (Category categoryToAdd) {
         List<Category> existingCategories = getAll();
         for (Category cat : existingCategories) {
-            if (cat.getName().equalsIgnoreCase(name)) {
+            if (cat.getName().equalsIgnoreCase(categoryToAdd.getName())) {
                 return null;
             }
         }
-        Category newCat = new Category();
-        newCat.setName(name);
-        newCat.setDescription(description);
-        return repository.save(newCat);
+        return repository.save(categoryToAdd);
     }
 
     public Category editCategory(Integer id, String name, String description) {

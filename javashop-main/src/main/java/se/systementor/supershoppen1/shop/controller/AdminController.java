@@ -9,9 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 import se.systementor.supershoppen1.shop.model.Category;
 
 import se.systementor.supershoppen1.shop.model.Category;
@@ -62,7 +60,20 @@ public class AdminController {
     }
 
 
-    @PutMapping(path="/admin/categories/create{name}{description}")
+    @GetMapping("/admin/categories/new")
+    public String createCategoryForm(Model model) {
+        Category category = new Category();
+        model.addAttribute("category", category);
+        return "admin/create_category";
+    }
+
+    @PostMapping("/admin/categories")
+    public String saveCategory(@ModelAttribute ("category") Category category) {
+        categoryService.addCategory(category);
+        return "redirect:/admin/categories";
+    };
+
+    /*@PutMapping(path="/admin/categories/create{name}{description}")
     public Category createNewCategory(@PathVariable("name") String name, @PathVariable("description") String description) {
         return categoryService.addCategory(name, description);
     }
@@ -70,6 +81,6 @@ public class AdminController {
     @PutMapping (path="/admin/categories/edit{id}{name}{description}")
     public Category editCategory(@PathVariable("id") Integer id, @PathVariable("name") String name, @PathVariable("description") String description) {
         return categoryService.editCategory(id, name, description);
-    }
+    }*/
 
 }
