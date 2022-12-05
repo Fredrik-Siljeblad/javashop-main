@@ -30,6 +30,10 @@ public class CategoryService {
         return repository.findById(id).get();
     }
 
+    public String getName(Integer id){
+        return repository.findById(id).get().getName();
+    }
+
     public void save(Category product1) {
         repository.save(product1);
     }

@@ -34,5 +34,10 @@ public class ProductService {
     public void save(Product product1) {
         repository.save(product1);
     }
+
+
+    public List<Product> findAllProductsByCategoryId(Integer id){
+     return repository.findProductByCategoryId(id);
+    }
 }
 
