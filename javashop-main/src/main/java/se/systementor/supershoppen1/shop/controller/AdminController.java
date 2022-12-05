@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import se.systementor.supershoppen1.shop.model.Category;
+import se.systementor.supershoppen1.shop.model.Product;
 import se.systementor.supershoppen1.shop.model.utils.CategoryAndProducts;
 import se.systementor.supershoppen1.shop.services.CategoryService;
 import se.systementor.supershoppen1.shop.services.ProductService;
@@ -55,6 +57,20 @@ public class AdminController {
         }
         model.addAttribute("categories", list);
         return "admin/categories";
+    }
+
+    @GetMapping(path="/admin/products/edit/{id}")
+    String editProduct(@PathVariable("id") int productId, Model model)
+    {
+        Product product = productService.get(productId);
+
+        model.addAttribute("product", product);
+        return "admin/update-product";
+    }
+
+    @GetMapping("/addNewProduct")
+    public String addNewProduct() {
+        return "admin/add-product";
     }
 
 
