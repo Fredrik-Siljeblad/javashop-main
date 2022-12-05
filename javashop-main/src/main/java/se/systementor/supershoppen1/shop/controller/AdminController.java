@@ -36,13 +36,14 @@ public class AdminController {
     @GetMapping(path="/admin/categories")
     String showAdminCategories(Model model)
     {
-        List<String> results = new ArrayList<String>();
         //Get the absolute path of ur image/Categories folder
-        File[] files = new File("/Users/williamle/Documents/GitHub/javashop-main/javashop-main/src/main/resources/static/images/Categories").listFiles();
+        String filePath = "/Users/williamle/Documents/GitHub/javashop-main/javashop-main/src/main/resources/static/images/Categories";
+        List<String> results = new ArrayList<String>();
+        File[] files = new File(filePath).listFiles();
         if (files != null){
             for (File file : files) {
                 if (file.isFile()) {
-                    results.add(file.getPath().substring(87));
+                    results.add(file.getPath().substring(filePath.length()-18));
                 }
             }
         }
