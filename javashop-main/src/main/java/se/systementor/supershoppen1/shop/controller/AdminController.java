@@ -47,7 +47,7 @@ public class AdminController {
     String showAdminCategories(Model model)
     {
         //Get the absolute path of ur image/Categories folder
-        String filePath = "C:\\Project\\javashop-main\\javashop-main\\src\\main\\resources\\static\\images\\Categories";
+        String filePath = "/Users/williamle/Documents/GitHub/javashop-main/javashop-main/src/main/resources/static/images/Categories";
         List<String> results = new ArrayList<String>();
         File[] files = new File(filePath).listFiles();
         if (files != null){
