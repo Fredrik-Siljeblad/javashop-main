@@ -12,6 +12,7 @@
     <tr th:each = "category : ${categories} ">
         <img th:src="${category.getImagePath()}" class="img-thumbnail" alt="">
         <h1 th:text = "${category.category.getName()}"></h1>
+        <p th:text = "${category.category.getDescription()}"></p>
 
         <table class="table">
             <thead>
