@@ -13,6 +13,7 @@ public class Newsletter {
     private String greeting;
     private String body;
     private LocalDateTime sentDate;
+
     private List<String> received; //List all email addresses that have received the letter.
 
     @Id
@@ -59,12 +60,7 @@ public class Newsletter {
         this.sentDate = sentDate;
     }
 
-    public List<String> getReceived() {
-        return received;
-    }
-
-    public void setReceived(List<String> received) {
-        this.received = received;
+    public void setReceived(List<String> signedUp) {
     }
 }
 
