@@ -77,6 +77,7 @@ public class SeedData implements CommandLineRunner {
 
     private void addSubcription(List<String> existingSubscriptions, String email, boolean active) {
         for(String sub: existingSubscriptions){
+            if(sub == null) return;
             if(sub.equals(email)) return;
         }
         Subscription newSub = new Subscription(email, active);
