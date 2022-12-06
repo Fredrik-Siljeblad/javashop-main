@@ -39,7 +39,7 @@ public class AdminController {
     String showAdminCategories(Model model)
     {
         //Get the absolute path of ur image/Categories folder
-        String filePath = "C:/Project/javashop-main/javashop-main/src/main/resources/static/images/Categories";
+        /*String filePath = "C:/Project/javashop-main/javashop-main/src/main/resources/static/images/Categories";
         List<String> results = new ArrayList<String>();
         File[] files = new File(filePath).listFiles();
         if (files != null){
@@ -49,11 +49,11 @@ public class AdminController {
                 }
             }
         }
-        List<String> sortedResult = results.stream().sorted().toList();
+        List<String> sortedResult = results.stream().sorted().toList();*/
         List<Category> categories = categoryService.getAll();
         List<CategoryAndProducts> list = new ArrayList<>()  ;
         for (int i = 1; i < categories.size() + 1; i++){
-            list.add(new CategoryAndProducts(categoryService.get(i),productService.findAllProductsByCategoryId(i), sortedResult.get(i-1)));
+            list.add(new CategoryAndProducts(categoryService.get(i),productService.findAllProductsByCategoryId(i)));
         }
         model.addAttribute("categories", list);
         return "admin/categories";
@@ -73,12 +73,8 @@ public class AdminController {
         return "redirect:/admin/categories";
     };
 
-    /*@PutMapping(path="/admin/categories/create{name}{description}")
-    public Category createNewCategory(@PathVariable("name") String name, @PathVariable("description") String description) {
-        return categoryService.addCategory(name, description);
-    }
 
-    @PutMapping (path="/admin/categories/edit{id}{name}{description}")
+   /* @PutMapping (path="/admin/categories/edit{id}{name}{description}")
     public Category editCategory(@PathVariable("id") Integer id, @PathVariable("name") String name, @PathVariable("description") String description) {
         return categoryService.editCategory(id, name, description);
     }*/
