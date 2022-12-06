@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import se.systementor.supershoppen1.shop.model.Category;
 
 import se.systementor.supershoppen1.shop.model.Category;
+import se.systementor.supershoppen1.shop.model.Product;
 import se.systementor.supershoppen1.shop.model.utils.CategoryAndProducts;
 import se.systementor.supershoppen1.shop.services.CategoryService;
 import se.systementor.supershoppen1.shop.services.ProductService;
@@ -51,10 +52,20 @@ public class AdminController {
         }
         List<String> sortedResult = results.stream().sorted().toList();*/
         List<Category> categories = categoryService.getAll();
-        List<CategoryAndProducts> list = new ArrayList<>()  ;
-        for (int i = 1; i < categories.size() + 1; i++){
-            list.add(new CategoryAndProducts(categoryService.get(i),productService.findAllProductsByCategoryId(i)));
+        List<Product> products = productService.getAll();
+        List<CategoryAndProducts> list = new ArrayList<>();
+        for (Category cat:categories) {
+            List<Product> tempProdList = new ArrayList<>();
+            for (Product prod:products) {
+                if(cat.getId() == prod.getCategory()) {
+                    tempProdList.add(prod);
+
+                }
+            }
+            list.add(new CategoryAndProducts(cat, tempProdList));
         }
+
+
         model.addAttribute("categories", list);
         return "admin/categories";
     }
