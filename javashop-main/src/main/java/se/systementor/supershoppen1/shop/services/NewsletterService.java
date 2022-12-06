@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import se.systementor.supershoppen1.shop.model.NewsletterRepository;
 
 @Service
 public class NewsletterService {
@@ -75,3 +76,12 @@ public class NewsletterService {
     }
 }
 
+    private final NewsletterRepository repository;
+
+    NewsletterService(NewsletterRepository rep) {
+        super();
+        this.repository = rep;
+    }
+
+
+}
