@@ -5,11 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import se.systementor.supershoppen1.shop.model.Newsletter;
 import se.systementor.supershoppen1.shop.services.NewsletterService;
 import se.systementor.supershoppen1.shop.services.ProductService;
@@ -43,11 +40,6 @@ public class AdminController {
     @GetMapping("/admin/newsletter/send/{id}")
     String sendNewsLetter(@PathVariable Integer id){
         return newsletterService.send(id);
-    }
-
-    @PostMapping("/admin/newsletter/new")
-    Newsletter createNewsletter(@RequestBody Newsletter newNewsLetter){
-        return newsletterService.create(newNewsLetter);
     }
 
 

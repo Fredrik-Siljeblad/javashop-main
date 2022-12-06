@@ -1,5 +1,6 @@
 package se.systementor.supershoppen1.shop.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.systementor.supershoppen1.shop.model.Newsletter;
 import se.systementor.supershoppen1.shop.model.NewsletterRepository;
@@ -15,9 +16,10 @@ import se.systementor.supershoppen1.shop.model.NewsletterRepository;
 @Service
 public class NewsletterService {
 
-    private final NewsletterRepository newsletterRepository;
-    private final UserAccountRepository userAccountRepository;
-    private final SubscriptionsService subscriptionsService;
+    @Autowired
+    private NewsletterRepository newsletterRepository;
+    private UserAccountRepository userAccountRepository;
+    private SubscriptionsService subscriptionsService;
 
     NewsletterService(NewsletterRepository newsletterRepository, UserAccountRepository userAccountRepository, SubscriptionsService subscriptionsService) {
         super();
@@ -73,14 +75,6 @@ public class NewsletterService {
     }
     public Newsletter create(Newsletter newNewsletter) {
         return newsletterRepository.save(newNewsletter);
-    }
-}
-
-    private final NewsletterRepository repository;
-
-    NewsletterService(NewsletterRepository rep) {
-        super();
-        this.repository = rep;
     }
 
 

@@ -1,13 +1,11 @@
 package se.systementor.supershoppen1.shop.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 
 @Entity
+@Table(name="SUBSCRIPTION")
 public class Subscriptions {
 
     private String email;
@@ -16,6 +14,7 @@ public class Subscriptions {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+
     private Integer id;
 
     public Integer getId() {
