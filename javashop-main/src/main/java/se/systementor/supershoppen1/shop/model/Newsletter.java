@@ -1,19 +1,19 @@
 package se.systementor.supershoppen1.shop.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
 
 @Entity
+@Table(name="NEWSLETTER")
+
 public class Newsletter {
     private String greeting;
     private String body;
     private LocalDateTime sentDate;
 
+    @ElementCollection
     private List<String> received; //List all email addresses that have received the letter.
 
     @Id

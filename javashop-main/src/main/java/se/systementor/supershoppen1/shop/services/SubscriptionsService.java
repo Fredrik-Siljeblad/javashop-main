@@ -1,9 +1,8 @@
 package se.systementor.supershoppen1.shop.services;
 
 import org.springframework.stereotype.Service;
-import se.systementor.supershoppen1.shop.model.Category;
-import se.systementor.supershoppen1.shop.model.CategoryRepository;
-import se.systementor.supershoppen1.shop.model.Subscriptions;
+import se.systementor.supershoppen1.shop.model.Product;
+import se.systementor.supershoppen1.shop.model.Subscription;
 import se.systementor.supershoppen1.shop.model.SubscriptionsRepository;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ public class SubscriptionsService {
 
     public List<String> getSignedUp() {
         ArrayList<String> l = new ArrayList<>();
-        for(Subscriptions r : repository.findAll())
+        for(Subscription r : repository.findAll())
         {
             if(r.isActive()) l.add(r.getEmail());
         }
@@ -30,18 +29,22 @@ public class SubscriptionsService {
 
     public List<String> getAll(){
         ArrayList<String> l = new ArrayList<>();
-        for(Subscriptions r : repository.findAll())
+        for(Subscription r : repository.findAll())
         {
             l.add(r.getEmail());
         }
         return l;
     }
 
-   public Subscriptions add(String email){
-        Subscriptions s = new Subscriptions();
-        s.setEmail(email);
+   public Subscription add(String email){
+        Subscription s = new Subscription(email, true);
         repository.save(s);
         return s;
    }
+
+    public void save(Subscription newSub) {
+            repository.save(newSub);
+    }
+
 }
 
