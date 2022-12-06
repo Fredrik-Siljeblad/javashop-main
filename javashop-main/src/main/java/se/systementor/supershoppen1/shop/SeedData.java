@@ -4,28 +4,27 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import se.systementor.supershoppen1.shop.configuration.PasswordEncoderConfiguration;
-import se.systementor.supershoppen1.shop.model.Category;
-import se.systementor.supershoppen1.shop.model.Product;
-import se.systementor.supershoppen1.shop.model.UserAccount;
-import se.systementor.supershoppen1.shop.model.UserAccountRepository;
+import se.systementor.supershoppen1.shop.model.*;
 import se.systementor.supershoppen1.shop.services.CategoryService;
 import se.systementor.supershoppen1.shop.services.ProductService;
 import se.systementor.supershoppen1.shop.services.ShopUserDetailsService;
+import se.systementor.supershoppen1.shop.services.SubscriptionsService;
 
 @Component
 public class SeedData implements CommandLineRunner {
     private final ProductService productService;
+    private final SubscriptionsService subscriptionsService;
     private final CategoryService categoryService;
     private final ShopUserDetailsService userDetailsService;
     private final PasswordEncoderConfiguration encoderConfig;
 
     @Autowired
-    public SeedData(ProductService productService, CategoryService categoryService, ShopUserDetailsService userDetailsService, PasswordEncoderConfiguration encoderConfig) {
+    public SeedData(ProductService productService, SubscriptionsService subscriptionsService, CategoryService categoryService, ShopUserDetailsService userDetailsService, PasswordEncoderConfiguration encoderConfig) {
         this.productService = productService;
+        this.subscriptionsService = subscriptionsService;
         this.categoryService = categoryService;
         this.userDetailsService = userDetailsService;
         this.encoderConfig = encoderConfig;
@@ -36,9 +35,11 @@ public class SeedData implements CommandLineRunner {
         // adminAccount();
         // userAccount();
         // category();
-        //exampleCategories();
-        //exampleProducts();
-        //exampleUsers();
+
+        exampleCategories();
+        exampleProducts();
+        exampleUsers();
+        exampleSubscriptions();
     }
 
 
@@ -66,6 +67,20 @@ public class SeedData implements CommandLineRunner {
         addUser(existingUsers, "admin@user.se", "ROLE_ADMIN");
         addUser(existingUsers, "user@user.se", "ROLE_USER");
 
+    }
+
+    private void exampleSubscriptions(){
+        var existingSubscriptions = subscriptionsService.getAll();
+        addSubcription(existingSubscriptions, "admin@user.se", true);
+        addSubcription(existingSubscriptions, "user@user.se", true);
+    }
+
+    private void addSubcription(List<String> existingSubscriptions, String email, boolean active) {
+        for(String sub: existingSubscriptions){
+            if(sub.equals(email)) return;
+        }
+        Subscription newSub = new Subscription(email, active);
+        subscriptionsService.save(newSub);
     }
 
 
@@ -183,4 +198,7 @@ public class SeedData implements CommandLineRunner {
         product1.setCategory(catId);
         productService.save(product1);
     }
+
+
+
 }
