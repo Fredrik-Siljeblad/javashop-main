@@ -17,6 +17,12 @@
       <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
         <h1 class="text-center"> Create New Category </h1>
         <div class="card-body">
+
+          <form th:action="@{/admin/categories/new}" enctype="multipart/form-data" method="POST">
+            <input type="file" name="imageFile" >
+            <input type="submit" value="Upload"/>
+
+
           <form th:action="@{/admin/categories}" th:object="${category}" method="POST">
             <div class="form-group">
               <label> Category Name </label>
@@ -45,7 +51,7 @@
                 Submit
               </button>
             </div>
-
+          </form>
           </form>
         </div>
 
