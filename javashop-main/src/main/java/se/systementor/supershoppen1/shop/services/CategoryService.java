@@ -1,10 +1,19 @@
 package se.systementor.supershoppen1.shop.services;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 import se.systementor.supershoppen1.shop.model.Category;
 import se.systementor.supershoppen1.shop.model.CategoryRepository;
+import se.systementor.supershoppen1.shop.model.utils.FileUploadUtil;
 
 
 @Service
@@ -38,7 +47,13 @@ public class CategoryService {
         repository.save(product1);
     }
 
-    public Category addCategory (Category categoryToAdd) {
+    public Category addCategory (Category categoryToAdd, MultipartFile multipartFile) throws IOException {
+        String uploadDir = "/Users/williamle/Documents/GitHub/javashop-main/javashop-main/src/main/resources/static/images/Categories";
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        categoryToAdd.setFilePath(uploadDir);
+        categoryToAdd.setFileName(fileName);
+        FileUploadUtil.saveFile(uploadDir,fileName,multipartFile);
+
         List<Category> existingCategories = getAll();
         for (Category cat : existingCategories) {
             if (cat.getName().equalsIgnoreCase(categoryToAdd.getName())) {

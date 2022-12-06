@@ -2136,6 +2136,7 @@ textarea.input {
 
 .img-thumbnail{
   width: 20%;
+  object-fit: contain;
 }
 
 /*=========================================================
