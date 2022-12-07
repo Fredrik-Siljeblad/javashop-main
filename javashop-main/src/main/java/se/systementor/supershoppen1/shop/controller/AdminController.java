@@ -82,13 +82,6 @@ public class AdminController {
         return "File path string is empty";
     }
 
-   /* @GetMapping (path="/admin/categories/edit/{id}")
-    public String getEditCategory(@ModelAttribute ("category") Category category,@RequestParam("image") MultipartFile multipartFile,@PathVariable Integer id) throws IOException {
-        categoryService.editCategory(id,category,multipartFile);
-        return "redirect:/admin/edit_category";
-    }*/
-
-
     @PostMapping (path="/admin/categories/edit/{id}")
     public String editCategory(@ModelAttribute ("category") Category category,@RequestParam("image") MultipartFile multipartFile,@PathVariable Integer id) throws IOException {
         categoryService.editCategory(id,category,multipartFile);
