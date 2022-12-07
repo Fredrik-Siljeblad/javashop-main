@@ -39,7 +39,7 @@ public class AdminController {
     @GetMapping(path="/admin/categories")
     String showAdminCategories(Model model)
     {
-
+        Category categoryToEdit = new Category();
         List<Category> categories = categoryService.getAll();
         List<Product> productList = productService.getAll();
         List<CategoryAndProducts> list = new ArrayList<>()  ;
@@ -55,6 +55,8 @@ public class AdminController {
         }
 
         model.addAttribute("categories", list);
+        model.addAttribute("categoryToEdit",categoryToEdit);
+
         return "admin/categories";
     }
 
@@ -73,20 +75,23 @@ public class AdminController {
         return "redirect:/admin/categories";
 
     };
-
-
     public String convertImagePath(String filePath,String fileName){
         if(filePath != null){
             return filePath.substring(filePath.length()-18) +"/"+fileName;
-
         }
         return "File path string is empty";
     }
 
-
-   /* @PutMapping (path="/admin/categories/edit{id}{name}{description}")
-    public Category editCategory(@PathVariable("id") Integer id, @PathVariable("name") String name, @PathVariable("description") String description) {
-        return categoryService.editCategory(id, name, description);
+   /* @GetMapping (path="/admin/categories/edit/{id}")
+    public String getEditCategory(@ModelAttribute ("category") Category category,@RequestParam("image") MultipartFile multipartFile,@PathVariable Integer id) throws IOException {
+        categoryService.editCategory(id,category,multipartFile);
+        return "redirect:/admin/edit_category";
     }*/
 
+
+    @PostMapping (path="/admin/categories/edit/{id}")
+    public String editCategory(@ModelAttribute ("category") Category category,@RequestParam("image") MultipartFile multipartFile,@PathVariable Integer id) throws IOException {
+        categoryService.editCategory(id,category,multipartFile);
+        return "redirect:/admin/categories";
+    }
 }
