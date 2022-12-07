@@ -4,27 +4,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.systementor.supershoppen1.shop.model.Newsletter;
 import se.systementor.supershoppen1.shop.model.NewsletterRepository;
-import se.systementor.supershoppen1.shop.model.UserAccountRepository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import se.systementor.supershoppen1.shop.model.NewsletterRepository;
 
 @Service
 public class NewsletterService {
 
-    @Autowired
-    private NewsletterRepository newsletterRepository;
-    private UserAccountRepository userAccountRepository;
-    private SubscriptionsService subscriptionsService;
+    private final NewsletterRepository newsletterRepository;
+    private final SubscriptionsService subscriptionsService;
 
-    NewsletterService(NewsletterRepository newsletterRepository, UserAccountRepository userAccountRepository, SubscriptionsService subscriptionsService) {
+    NewsletterService(NewsletterRepository newsletterRepository, SubscriptionsService subscriptionsService) {
         super();
         this.newsletterRepository = newsletterRepository;
-        this.userAccountRepository = userAccountRepository;
         this.subscriptionsService = subscriptionsService;    }
 
     public List<Newsletter> getAll(){
@@ -58,10 +52,6 @@ public class NewsletterService {
 
     public String send(Integer id){
         Newsletter nl = getById(id);
-        List<String> recipients;
-
-        recipients = subscriptionsService.getSignedUp();
-
 
         if(nl.getSentDate() != null){
             return "Newsletter was already sent " + nl.getSentDate().toString() +".";
@@ -76,6 +66,5 @@ public class NewsletterService {
     public Newsletter create(Newsletter newNewsletter) {
         return newsletterRepository.save(newNewsletter);
     }
-
-
 }
+
