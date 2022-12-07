@@ -27,8 +27,8 @@
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
-                <th> Body</th>
                 <th> Greeting </th>
+                <th> Body</th>
                 <th> Sent date</th>
             </tr>
             </thead>
@@ -37,10 +37,10 @@
                       <td> No newsletters available</td>
                     </tr>-->
             <tr th:each="newsletter: ${newsletters}">
-                <td th:text="${newsletter.body}"/>
                 <td th:text="${newsletter.greeting}"/>
+                <td th:text="${newsletter.body}"/>
                 <td th:text="${newsletter.sentDate}"/>
-                <td> <a class="btn btn-info" th:href="@{/admin/newsletter/editnewsletter/{id}(id = ${newsletter.id})}">View Post</a></td>
+                <td> <a class="btn btn-info" th:href="@{/admin/newsletter/edit/{id}(id = ${newsletter.id})}">View Post</a></td>
                 <td> <button class="edit-newsletter-btn"> SEND newsletter </button></td>
 
             </tr>

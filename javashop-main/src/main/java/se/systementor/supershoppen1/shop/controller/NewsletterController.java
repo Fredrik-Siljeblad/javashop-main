@@ -43,27 +43,21 @@ public class NewsletterController {
         return mav;
     }
 
-    @GetMapping(path = "/admin/newsletter/editnewsletter/{id}")
-
+    @GetMapping(path = "/admin/newsletter/edit/{id}")
     public String showNewsletterById(@PathVariable Integer id, Model model){
-       model.addAttribute("newsletters", newsletterService.getById(id));
+       model.addAttribute("newsletter", newsletterService.getById(id));
+       System.out.println("test get");
        return "editnewsletter";
     }
 
-    /*@PutMapping(path = "/admin/newsletter/editnewsletter/{id}")
-    public ModelAndView updateNewsletterById(@PathVariable Integer id){
-        ModelAndView mav = new ModelAndView("editnewsletter");
-        mav.addObject("editnewsletter", newsletterService.getById(id));
-        return mav;
+    @PostMapping(path = "/admin/newsletter/{id}")
+    public String editNewsletterById(@PathVariable Integer id, @ModelAttribute("newsletter") Newsletter newsletter){
+        Newsletter existingNewsletter = newsletterService.getById(id);
+        existingNewsletter.setId(id);
+        existingNewsletter.setGreeting(newsletter.getGreeting());
+        existingNewsletter.setBody(newsletter.getBody());
+
+        newsletterService.create(existingNewsletter);
+        return "redirect:/admin/newsletter";
     }
-
-
-    @GetMapping(path = "/admin/newsletter/editnewsletter/{id}")
-    public ModelAndView showNewsletterById(@PathVariable Integer id){
-        ModelAndView mav = new ModelAndView("editnewsletter");
-        mav.addObject("editnewsletter", newsletterService.getById(id));
-        return mav;
-    }*/
-
-
 }
