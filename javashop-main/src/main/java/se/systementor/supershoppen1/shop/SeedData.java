@@ -52,15 +52,16 @@ public class SeedData implements CommandLineRunner {
     }
 
     private void exampleCategories(){
+        final String FILEPATH ="src/main/resources/static/images/Categories";
         var existing = categoryService.getAll();
-        addCategory(existing,"Beverages","Soft drinks, coffees, teas, beers, and ales");
-        addCategory(existing,"Condiments","Sweet and savory sauces, relishes, spreads, and seasonings");
-        addCategory(existing,"Confections","Desserts, candies, and sweet breads");
-        addCategory(existing,"Dairy Products","Cheeses");
-        addCategory(existing,"Grains/Cereals","Breads, crackers, pasta, and cereal");
-        addCategory(existing,"Meat/Poultry","Prepared meats");
-        addCategory(existing,"Produce","Dried fruit and bean curd");
-        addCategory(existing,"Seafood","Seaweed and fish");
+        addCategory(existing,"Beverages","Soft drinks, coffees, teas, beers, and ales", FILEPATH, "1.jpeg");
+        addCategory(existing,"Condiments","Sweet and savory sauces, relishes, spreads, and seasonings", FILEPATH, "2.jpeg");
+        addCategory(existing,"Confections","Desserts, candies, and sweet breads", FILEPATH, "3.jpeg");
+        addCategory(existing,"Dairy Products","Cheeses", FILEPATH, "4.jpeg");
+        addCategory(existing,"Grains/Cereals","Breads, crackers, pasta, and cereal", FILEPATH, "5.jpeg");
+        addCategory(existing,"Meat/Poultry","Prepared meats", FILEPATH, "6.jpeg");
+        addCategory(existing,"Produce","Dried fruit and bean curd", FILEPATH, "7.jpeg");
+        addCategory(existing,"Seafood","Seaweed and fish", FILEPATH, "8.gif");
     }
 
     private void exampleUsers(){
@@ -179,13 +180,15 @@ public class SeedData implements CommandLineRunner {
     }
 
 
-    private void addCategory(List<Category> existing, String name,String description){
+    private void addCategory(List<Category> existing, String name,String description, String filePath, String fileName){
         for (Category cat : existing) {
             if (cat.getName().equals(name)) return;
         }
         Category cat1 = new Category();
         cat1.setName(name);
         cat1.setDescription(description);
+        cat1.setFilePath(filePath);
+        cat1.setFileName(fileName);
         categoryService.save(cat1);
     }
     private void addProduct(List<Product> existing, int catId, String name,int pris,int stocklevel,String description){
