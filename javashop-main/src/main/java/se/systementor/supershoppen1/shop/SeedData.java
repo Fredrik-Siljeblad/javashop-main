@@ -48,7 +48,7 @@ public class SeedData implements CommandLineRunner {
         }
         return -1;
     }
-
+//AAA
     private void exampleCategories(){
         var existing = categoryService.getAll();
         addCategory(existing,"Beverages","Soft drinks, coffees, teas, beers, and ales");
