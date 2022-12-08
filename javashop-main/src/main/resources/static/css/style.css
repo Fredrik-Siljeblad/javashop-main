@@ -109,6 +109,12 @@ ul, ol {
   color: #FFF;
 }
 
+.title-button{
+  display: flex;
+  gap: 2rem;
+  margin:2rem 0 auto;
+}
+
 /*----------------------------*\
 	Inputs
 \*----------------------------*/
@@ -1996,6 +2002,9 @@ textarea.input {
   background-color: #E4E7ED;
   color: #D10024;
 }
+.modal-dialog-centered {
+  min-height: calc(100% - (1.75rem * 2));
+}
 
 /*=========================================================
 	11 -> FOOTER
@@ -2133,6 +2142,7 @@ textarea.input {
 
 .img-thumbnail{
   width: 20%;
+  object-fit: contain;
 }
 
 /*=========================================================

@@ -16,7 +16,7 @@ public class CategoryAndProducts {
         return imagePath;
     }
 
-    public CategoryAndProducts(Category category, List<Product> productList, String imagePath){
+    public CategoryAndProducts(Category category, List<Product> productList,String imagePath){
         this.category = category;
         this.productList = productList;
         this.imagePath = imagePath;

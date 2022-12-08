@@ -36,6 +36,7 @@ public class SeedData implements CommandLineRunner {
         // userAccount();
         // category();
 
+
         exampleCategories();
         exampleProducts();
         exampleUsers();
@@ -165,7 +166,7 @@ public class SeedData implements CommandLineRunner {
         addProduct(existingProducts, findCatId(existingCats,"Produce") ,"Longlife Tofu",10,4,"Fantastic");
         addProduct(existingProducts, findCatId(existingCats,"Beverages") ,"Rhönbräu Klosterbier",8,125,"Fantastic");
         addProduct(existingProducts, findCatId(existingCats,"Beverages") ,"Lakkalikööri",18,57,"Fantastic");
-        addProduct(existingProducts, findCatId(existingCats,"Condiments") ,"Original Frankfurter grüne Soße",13,32,"Fantastic");    
+        addProduct(existingProducts, findCatId(existingCats,"Condiments") ,"Original Frankfurter grüne Soße",13,32,"Fantastic");
     }
 
     private void addUser(List<UserAccount> existingUsers, String email, String groups) {
@@ -174,7 +175,7 @@ public class SeedData implements CommandLineRunner {
         }
         UserAccount acc = new UserAccount(email, encoderConfig.passwordEncoder().encode("stefan123") , groups);
         userDetailsService.save(acc);
-        
+
     }
 
 
