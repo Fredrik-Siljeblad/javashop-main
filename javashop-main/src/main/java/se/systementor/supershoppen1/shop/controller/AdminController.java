@@ -27,9 +27,9 @@ import se.systementor.supershoppen1.shop.services.ProductService;
 
 @Controller
 public class AdminController {
-    private  ProductService productService;
+    private final  ProductService productService;
     private NewsletterService newsletterService;
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
 
     @Autowired
     public AdminController(ProductService productService,CategoryService categoryService ) {
@@ -90,9 +90,11 @@ public class AdminController {
     }
 
     @GetMapping(path="/admin/products/edit/{id}")
-    String editProduct(@PathVariable("id") int productId, Model model)
-    {
+    String editProduct(@PathVariable("id") int productId, Model model) {
         Product product = productService.get(productId);
+        //TODO: return what?
+        return "";
+    }
 
     @GetMapping("/admin/categories/new")
     public String createCategoryForm(Model model) {
@@ -108,7 +110,8 @@ public class AdminController {
         return "redirect:/admin/categories";
 
 
-    };
+    }
+
     public String convertImagePath(String filePath,String fileName){
         if(filePath != null){
             return filePath.substring(filePath.length()-18) +"/"+fileName;
