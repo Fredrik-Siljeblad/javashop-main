@@ -109,6 +109,12 @@ ul, ol {
   color: #FFF;
 }
 
+.title-button{
+  display: flex;
+  gap: 2rem;
+  margin:2rem 0 auto;
+}
+
 /*----------------------------*\
 	Inputs
 \*----------------------------*/

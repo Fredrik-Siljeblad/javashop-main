@@ -13,13 +13,17 @@
 <div class="container">
     <tr th:each="category : ${categories} ">
         <img th:src="${(category.getImagePath())}" class="img-thumbnail" alt="">
-        <h1 th:text="${category.category.getName()}"></h1>
+        <div class="title-button">
+            <h1 th:text="${category.category.getName()}"></h1>
+            <button type="button" class="btn btn-primary"
+                    data-toggle="modal" th:attr="data-target='#exampleModalCenter' + *{category.category.id}" >
+                Edit
+            </button>
+        </div>
+
         <p th:text="${category.category.getDescription()}"></p>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary"
-                data-toggle="modal" th:attr="data-target='#exampleModalCenter' + *{category.category.id}" >
-            Edit
-        </button>
+
 
         <!-- Modal -->
         <div class="modal fade" th:id="'exampleModalCenter' + *{category.category.id}" tabindex="-1" role="dialog"
@@ -34,7 +38,6 @@
                     <div class="modal-body">
                         <form th:action="@{/admin/categories/edit/{id} (id=${category.category.id})}  "
                               th:object="${categoryToEdit}" method="POST" enctype="multipart/form-data">
-                                 <p th:text="${category.category.getId()}">no id at all</p>
                             <div class="form-group">
                                 <label> Category picture </label>
                                 <input
