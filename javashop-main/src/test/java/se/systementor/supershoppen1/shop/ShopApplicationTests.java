@@ -6,6 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class ShopApplicationTests {
 
+	// Fredrik skriver en kommentar som han ber Lukas review-a
+
 	@Test
 	void contextLoads() {
 	}
