@@ -41,7 +41,7 @@ public class AdminController {
         model.addAttribute("products", productService.getAll());
         return "admin/products";
     }
-
+    // Lukas test
 
     @GetMapping("/admin/newsletter/all")
     List<Newsletter> getAllNewsletters(){
