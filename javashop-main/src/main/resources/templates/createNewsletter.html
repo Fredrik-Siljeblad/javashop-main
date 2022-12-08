@@ -24,17 +24,17 @@
                 <!-- /product -->
               </div>
     <div class="newsletter-container">
-      <form action="#" method="post">
+      <form action="#" th:action="@{/admin/newsletter}" th:object="${newsletter}" method="post">
 
       <label>
         <h2> Title: </h2>
 
-        <input type="text" name="newsletterTitle" class="textBox"/>
+        <input type="text" name="newsletterTitle" th:field="*{greeting}" class="textBox"/>
       </label>
 
       <label class="textBoxNewsletter">
         <h2> Content: </h2>
-        <textarea type="text" value="content" name="newsletterText" class="textBoxNewsletter" method="post"> </textarea>
+        <textarea type="text" value="content" name="newsletterText" th:field="*{body}" class="textBoxNewsletter" method="post"> </textarea>
 
       </label>
       <input type="submit" class="submit-btn"/>

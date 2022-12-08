@@ -3,11 +3,10 @@ package se.systementor.supershoppen1.shop.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import se.systementor.supershoppen1.shop.model.Newsletter;
 import se.systementor.supershoppen1.shop.services.NewsletterService;
-import se.systementor.supershoppen1.shop.services.ProductService;
 
 @Controller
 public class NewsletterController {
@@ -17,14 +16,48 @@ public class NewsletterController {
     public NewsletterController(NewsletterService newsletterService) {
         this.newsletterService = newsletterService;
     }
-    @GetMapping(path = "/createNewsletter")
-    String empty(Model model)
+
+    // Endpoint to create a newsletter.
+    @GetMapping(path = "/admin/createNewsletter")
+    public String createNewsletter(Model model)
     {
+        Newsletter newsletter = new Newsletter();
+        model.addAttribute("newsletter", newsletter);
+
         return "createNewsletter";
     }
-    @GetMapping(path = "/newsletter")
-    String emptyy(Model model)
-    {
-        return "newsletter";
+
+    // Create newsletter from /admin/newsletter submit btn.
+    @PostMapping(path = "/admin/newsletter")
+    public String submitForm(@ModelAttribute("newsletter") Newsletter newsletters){
+
+        newsletterService.create(newsletters);
+        return "redirect:/admin/newsletter";
+    }
+
+    // The main newsletter menu.
+    @GetMapping(path = "/admin/newsletter")
+    public ModelAndView showAll(){
+        ModelAndView mav = new ModelAndView("newsletter");
+        mav.addObject("newsletters", newsletterService.getAll());
+        return mav;
+    }
+
+    @GetMapping(path = "/admin/newsletter/edit/{id}")
+    public String showNewsletterById(@PathVariable Integer id, Model model){
+       model.addAttribute("newsletter", newsletterService.getById(id));
+       System.out.println("test get");
+       return "editnewsletter";
+    }
+
+    @PostMapping(path = "/admin/newsletter/{id}")
+    public String editNewsletterById(@PathVariable Integer id, @ModelAttribute("newsletter") Newsletter newsletter){
+        Newsletter existingNewsletter = newsletterService.getById(id);
+        existingNewsletter.setId(id);
+        existingNewsletter.setGreeting(newsletter.getGreeting());
+        existingNewsletter.setBody(newsletter.getBody());
+
+        newsletterService.create(existingNewsletter);
+        return "redirect:/admin/newsletter";
     }
 }

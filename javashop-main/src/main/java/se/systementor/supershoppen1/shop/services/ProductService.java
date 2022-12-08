@@ -35,9 +35,17 @@ public class ProductService {
         repository.save(product1);
     }
 
-
     public List<Product> findAllProductsByCategoryId(Integer id){
      return repository.findProductByCategoryId(id);
+    }
+
+    public Product updateProduct(int productId, Product updatedProduct) {
+        var product = repository.findById(productId);
+        if (product == null)
+            throw new IllegalArgumentException();
+
+        updatedProduct.setId(productId);
+        return repository.save(updatedProduct);
     }
 }
 

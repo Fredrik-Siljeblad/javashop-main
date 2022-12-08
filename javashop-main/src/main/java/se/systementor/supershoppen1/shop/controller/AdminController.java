@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import se.systementor.supershoppen1.shop.model.Category;
 
+import org.springframework.web.bind.annotation.PathVariable;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import se.systementor.supershoppen1.shop.model.Newsletter;
+import se.systementor.supershoppen1.shop.services.NewsletterService;
 import se.systementor.supershoppen1.shop.model.Category;
 import se.systementor.supershoppen1.shop.model.Product;
 import se.systementor.supershoppen1.shop.model.utils.CategoryAndProducts;
@@ -22,7 +28,9 @@ import se.systementor.supershoppen1.shop.services.ProductService;
 @Controller
 public class AdminController {
     private  ProductService productService;
+    private NewsletterService newsletterService;
     private CategoryService categoryService;
+
     @Autowired
     public AdminController(ProductService productService,CategoryService categoryService ) {
         this.productService = productService;
@@ -34,6 +42,27 @@ public class AdminController {
     {
         model.addAttribute("products", productService.getAll());
         return "admin/products";
+    }
+
+
+    @GetMapping("/admin/newsletter/all")
+    List<Newsletter> getAllNewsletters(){
+        return newsletterService.getAll();
+    }
+
+    @GetMapping("/admin/newsletter/sent")
+    List<Newsletter> getAllSentNewsletters(){
+        return newsletterService.getSent();
+    }
+
+    @GetMapping("/admin/newsletter/send/{id}")
+    String sendNewsLetter(@PathVariable Integer id){
+        return newsletterService.send(id);
+    }
+
+    @PostMapping("/admin/newsletter/new")
+    Newsletter createNewsletter(@RequestBody Newsletter newNewsLetter){
+        return newsletterService.create(newNewsLetter);
     }
 
     @GetMapping(path="/admin/categories")
@@ -60,6 +89,10 @@ public class AdminController {
         return "admin/categories";
     }
 
+    @GetMapping(path="/admin/products/edit/{id}")
+    String editProduct(@PathVariable("id") int productId, Model model)
+    {
+        Product product = productService.get(productId);
 
     @GetMapping("/admin/categories/new")
     public String createCategoryForm(Model model) {
@@ -73,6 +106,7 @@ public class AdminController {
         categoryService.addCategory(category,multipartFile);
 
         return "redirect:/admin/categories";
+
 
     };
     public String convertImagePath(String filePath,String fileName){
