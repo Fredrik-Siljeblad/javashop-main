@@ -92,8 +92,14 @@ public class AdminController {
     @GetMapping(path="/admin/products/edit/{id}")
     String editProduct(@PathVariable("id") int productId, Model model) {
         Product product = productService.get(productId);
-        //TODO: return what?
-        return "";
+
+        model.addAttribute("product", product);
+        return "admin/update-product";
+    }
+
+    @GetMapping("/addNewProduct")
+    public String addNewProduct() {
+        return "admin/add-product";
     }
 
     @GetMapping("/admin/categories/new")
