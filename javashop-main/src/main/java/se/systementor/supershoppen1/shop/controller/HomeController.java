@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import se.systementor.supershoppen1.shop.model.Category;
 import se.systementor.supershoppen1.shop.model.Product;
 import se.systementor.supershoppen1.shop.model.utils.CategoryAndProducts;
+import se.systementor.supershoppen1.shop.model.utils.FunctionsUtils;
+import se.systementor.supershoppen1.shop.model.utils.LatestProduct;
 import se.systementor.supershoppen1.shop.services.CategoryService;
 import se.systementor.supershoppen1.shop.services.ProductService;
 import se.systementor.supershoppen1.shop.services.SubscriptionsService;
@@ -46,18 +48,16 @@ public class HomeController {
         }
         List<Category> categories = categoryService.getAll();
         List<Product> productList = productService.getAll();
-        List<CategoryAndProducts> list = new ArrayList<>()  ;
-
-        for( Category category: categories){
-            List<Product> productList1 = new ArrayList<>();
-            for(Product product : productList){
-                if (product.getCategory() == category.getId()){
-                    productList1.add(product);
-                }
-            }
-            list.add(new CategoryAndProducts(category,productList1,convertImagePath(category.getFilePath(),category.getFileName())));
+        List<LatestProduct> latestProducts = new ArrayList<>();
+        for (Product product: productList) {
+            latestProducts.add(new LatestProduct(product,categoryService.get(product.getCategoryId())));
         }
-        model.addAttribute("products", list);
+
+        List<LatestProduct> latestProductsSort = latestProducts.subList(latestProducts.size()-11, latestProducts.size()-1);
+        model.addAttribute("categories",categories);
+        model.addAttribute("lastTen",latestProductsSort);
+
+
 
         return "home";
     }

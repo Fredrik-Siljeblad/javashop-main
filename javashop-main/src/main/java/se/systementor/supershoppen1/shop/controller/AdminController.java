@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import se.systementor.supershoppen1.shop.model.Newsletter;
+import se.systementor.supershoppen1.shop.model.utils.FileUploadUtil;
+import se.systementor.supershoppen1.shop.model.utils.FunctionsUtils;
 import se.systementor.supershoppen1.shop.services.NewsletterService;
 import se.systementor.supershoppen1.shop.model.Category;
 import se.systementor.supershoppen1.shop.model.Product;
@@ -31,8 +33,9 @@ public class AdminController {
     private NewsletterService newsletterService;
     private final CategoryService categoryService;
 
+
     @Autowired
-    public AdminController(ProductService productService,CategoryService categoryService ) {
+    public AdminController(ProductService productService,CategoryService categoryService) {
         this.productService = productService;
         this.categoryService =categoryService;
     }
@@ -68,23 +71,14 @@ public class AdminController {
     @GetMapping(path="/admin/categories")
     String showAdminCategories(Model model)
     {
+        FunctionsUtils functionsUtils = new FunctionsUtils();
         Category categoryToEdit = new Category();
         List<Category> categories = categoryService.getAll();
         List<Product> productList = productService.getAll();
-        List<CategoryAndProducts> list = new ArrayList<>()  ;
-
-        for( Category category: categories){
-            List<Product> productList1 = new ArrayList<>();
-            for(Product product : productList){
-                if (product.getCategory() == category.getId()){
-                    productList1.add(product);
-                }
-            }
-            list.add(new CategoryAndProducts(category,productList1,convertImagePath(category.getFilePath(),category.getFileName())));
-        }
-
+        List<CategoryAndProducts> list = functionsUtils.globalCategoryAndProducts(productList,categories);
         model.addAttribute("categories", list);
         model.addAttribute("categoryToEdit",categoryToEdit);
+
 
         return "admin/categories";
     }
@@ -116,13 +110,6 @@ public class AdminController {
         return "redirect:/admin/categories";
 
 
-    }
-
-    public String convertImagePath(String filePath,String fileName){
-        if(filePath != null){
-            return filePath.substring(filePath.length()-18) +"/"+fileName;
-        }
-        return "File path string is empty";
     }
 
     @PostMapping (path="/admin/categories/edit/{id}")

@@ -9,8 +9,10 @@ public class Product {
     private int price;
     private int categoryId;
 
+    public int getCategoryId() {
+        return categoryId;
+    }
     private int rating;
-    private int campaignPrice;
     private int campaignPercentage;
 
 
@@ -82,8 +84,8 @@ public class Product {
         this.rating = rating;
     }
 
-    public int getCampaignPercentage() {
-        return campaignPercentage;
+    public String  getCampaignPercentage() {
+        return "-"+campaignPercentage + "%";
     }
 
     public void setCampaignPercentage(int campaignPercentage) {
