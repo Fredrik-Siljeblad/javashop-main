@@ -50,13 +50,7 @@ public class SubscriptionsService {
     }
 
     public boolean isSubscriber(String user) {
-        UserAccount maybeSubscriber = (UserAccount) new Object();
-        Subscription maybeSubscription = new Subscription();
-        if (maybeSubscriber.getEmail().equalsIgnoreCase(maybeSubscription.getEmail())) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.getAll().contains(user);
     }
 }
 
