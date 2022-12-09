@@ -9,6 +9,12 @@ public class Product {
     private int price;
     private int categoryId;
 
+    private int rating;
+    private int campaignPrice;
+    private int campaignPercentage;
+
+
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
@@ -62,6 +68,26 @@ public class Product {
     }
     public String getDescription() {
         return description;
+    }
+
+    public int getCampaignPrice() {
+        return price - (price * (campaignPercentage / 100));
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public int getCampaignPercentage() {
+        return campaignPercentage;
+    }
+
+    public void setCampaignPercentage(int campaignPercentage) {
+        this.campaignPercentage = campaignPercentage;
     }
 
     
