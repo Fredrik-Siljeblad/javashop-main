@@ -1,9 +1,12 @@
 package se.systementor.supershoppen1.shop.services;
 
+import org.apache.catalina.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import se.systementor.supershoppen1.shop.model.Product;
 import se.systementor.supershoppen1.shop.model.Subscription;
 import se.systementor.supershoppen1.shop.model.SubscriptionsRepository;
+import se.systementor.supershoppen1.shop.model.UserAccount;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,5 +49,8 @@ public class SubscriptionsService {
             repository.save(newSub);
     }
 
+    public boolean isSubscriber(String user) {
+        return this.getAll().contains(user);
+    }
 }
 
