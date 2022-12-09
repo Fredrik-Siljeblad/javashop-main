@@ -1,5 +1,6 @@
 package se.systementor.supershoppen1.shop.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import se.systementor.supershoppen1.shop.model.Category;
 import se.systementor.supershoppen1.shop.model.Product;
+import se.systementor.supershoppen1.shop.model.utils.CategoryAndProducts;
+import se.systementor.supershoppen1.shop.services.CategoryService;
 import se.systementor.supershoppen1.shop.services.ProductService;
 import se.systementor.supershoppen1.shop.services.SubscriptionsService;
 
@@ -18,10 +22,14 @@ import se.systementor.supershoppen1.shop.services.SubscriptionsService;
 public class HomeController {
     private  ProductService productService;
     private SubscriptionsService subscriptionsService;
+    private CategoryService categoryService;
+
+
     @Autowired
-    public HomeController(ProductService productService, SubscriptionsService subscriptionsService) {
+    public HomeController(ProductService productService, SubscriptionsService subscriptionsService, CategoryService categoryService) {
         this.productService = productService;
         this.subscriptionsService = subscriptionsService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping(path="/")
@@ -36,7 +44,29 @@ public class HomeController {
         } else {
             model.addAttribute("hideSubscription", false);
         }
+        List<Category> categories = categoryService.getAll();
+        List<Product> productList = productService.getAll();
+        List<CategoryAndProducts> list = new ArrayList<>()  ;
+
+        for( Category category: categories){
+            List<Product> productList1 = new ArrayList<>();
+            for(Product product : productList){
+                if (product.getCategory() == category.getId()){
+                    productList1.add(product);
+                }
+            }
+            list.add(new CategoryAndProducts(category,productList1,convertImagePath(category.getFilePath(),category.getFileName())));
+        }
+        model.addAttribute("products", list);
+
         return "home";
+    }
+
+    public String convertImagePath(String filePath,String fileName){
+        if(filePath != null){
+            return filePath.substring(filePath.length()-18) +"/"+fileName;
+        }
+        return "File path string is empty";
     }
 
     @GetMapping(path="/test2")
