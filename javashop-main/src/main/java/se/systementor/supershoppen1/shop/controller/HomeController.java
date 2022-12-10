@@ -9,7 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import se.systementor.supershoppen1.shop.model.Category;
 import se.systementor.supershoppen1.shop.model.Product;
@@ -52,27 +52,18 @@ public class HomeController {
         for (Product product: productList) {
             latestProducts.add(new LatestProduct(product,categoryService.get(product.getCategoryId())));
         }
-
         List<LatestProduct> latestProductsSort = latestProducts.subList(latestProducts.size()-11, latestProducts.size()-1);
         model.addAttribute("categories",categories);
+
         model.addAttribute("lastTen",latestProductsSort);
-
-
 
         return "home";
     }
 
-    public String convertImagePath(String filePath,String fileName){
-        if(filePath != null){
-            return filePath.substring(filePath.length()-18) +"/"+fileName;
-        }
-        return "File path string is empty";
-    }
 
-    @GetMapping(path="/test2")
-    List<Product> getAll(){
-        return productService.getAll();
-    }
+
+
+
 
 
 }
