@@ -73,10 +73,10 @@ th:fragment="layout(template)">
                             <div class="header-ctn">
                                 <!-- Wishlist -->
                                 <div>
-                                    <a href="#">
+                                    <a th:href="@{/wishingList}">
                                         <i class="fa fa-heart-o"></i>
                                         <span>Your Wishlist</span>
-                                        <div class="qty">2</div>
+                                        <div class="qty"></div>
                                     </a>
                                 </div>
                                 <!-- /Wishlist -->
@@ -85,7 +85,7 @@ th:fragment="layout(template)">
                                     <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                         <i class="fa fa-shopping-cart"></i>
                                         <span>Your Cart</span>
-                                        <div class="qty">3</div>
+                                        <div class="qty"></div>
                                     </a>
                                     <div class="cart-dropdown">
                                         <div class="cart-list" th:text="${cart}">
@@ -106,7 +106,7 @@ th:fragment="layout(template)">
                                         </div>
                                         <div class="cart-btns">
                                             <a th:href="@{/shoppingCart}">View Cart</a>
-                                            <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                                            <a th:href="@{/shoppingCart/checkout}">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -251,8 +251,8 @@ th:fragment="layout(template)">
                                 <h3 class="footer-title">Service</h3>
                                 <ul class="footer-links">
                                     <li><a href="#">My Account</a></li>
-                                    <li><a href="#">View Cart</a></li>
-                                    <li><a href="#">Wishlist</a></li>
+                                    <li><a th:href="@{/shoppingCart}">View Cart</a></li>
+                                    <li><a th:href="@{wishingList}">Wishlist</a></li>
                                     <li><a href="#">Track My Order</a></li>
                                     <li><a href="#">Help</a></li>
                                 </ul>
