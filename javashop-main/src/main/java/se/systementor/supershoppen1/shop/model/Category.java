@@ -11,6 +11,26 @@ public class Category {
     private String name;
     private String description;
 
+    private String filePath;
+    private String fileName;
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;

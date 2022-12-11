@@ -164,7 +164,7 @@ th:fragment="layout(template)">
         </div>
         <!-- /SECTION -->
         <!-- NEWSLETTER -->
-        <div id="newsletter" class="section">
+        <div id="newsletter" class="section" th:unless="${hideSubscription}">
             <!-- container -->
             <div class="container">
                 <!-- row -->

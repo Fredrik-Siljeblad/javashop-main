@@ -4,28 +4,27 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import se.systementor.supershoppen1.shop.configuration.PasswordEncoderConfiguration;
-import se.systementor.supershoppen1.shop.model.Category;
-import se.systementor.supershoppen1.shop.model.Product;
-import se.systementor.supershoppen1.shop.model.UserAccount;
-import se.systementor.supershoppen1.shop.model.UserAccountRepository;
+import se.systementor.supershoppen1.shop.model.*;
 import se.systementor.supershoppen1.shop.services.CategoryService;
 import se.systementor.supershoppen1.shop.services.ProductService;
 import se.systementor.supershoppen1.shop.services.ShopUserDetailsService;
+import se.systementor.supershoppen1.shop.services.SubscriptionsService;
 
 @Component
 public class SeedData implements CommandLineRunner {
     private final ProductService productService;
+    private final SubscriptionsService subscriptionsService;
     private final CategoryService categoryService;
     private final ShopUserDetailsService userDetailsService;
     private final PasswordEncoderConfiguration encoderConfig;
 
     @Autowired
-    public SeedData(ProductService productService, CategoryService categoryService, ShopUserDetailsService userDetailsService, PasswordEncoderConfiguration encoderConfig) {
+    public SeedData(ProductService productService, SubscriptionsService subscriptionsService, CategoryService categoryService, ShopUserDetailsService userDetailsService, PasswordEncoderConfiguration encoderConfig) {
         this.productService = productService;
+        this.subscriptionsService = subscriptionsService;
         this.categoryService = categoryService;
         this.userDetailsService = userDetailsService;
         this.encoderConfig = encoderConfig;
@@ -36,9 +35,12 @@ public class SeedData implements CommandLineRunner {
         // adminAccount();
         // userAccount();
         // category();
-        //exampleCategories();
-        //exampleProducts();
-        //exampleUsers();
+
+
+        exampleCategories();
+        exampleProducts();
+        exampleUsers();
+        exampleSubscriptions();
     }
 
 
@@ -50,15 +52,16 @@ public class SeedData implements CommandLineRunner {
     }
 
     private void exampleCategories(){
+        final String FILEPATH ="src/main/resources/static/images/Categories";
         var existing = categoryService.getAll();
-        addCategory(existing,"Beverages","Soft drinks, coffees, teas, beers, and ales");
-        addCategory(existing,"Condiments","Sweet and savory sauces, relishes, spreads, and seasonings");
-        addCategory(existing,"Confections","Desserts, candies, and sweet breads");
-        addCategory(existing,"Dairy Products","Cheeses");
-        addCategory(existing,"Grains/Cereals","Breads, crackers, pasta, and cereal");
-        addCategory(existing,"Meat/Poultry","Prepared meats");
-        addCategory(existing,"Produce","Dried fruit and bean curd");
-        addCategory(existing,"Seafood","Seaweed and fish");
+        addCategory(existing,"Beverages","Soft drinks, coffees, teas, beers, and ales", FILEPATH, "1.jpeg");
+        addCategory(existing,"Condiments","Sweet and savory sauces, relishes, spreads, and seasonings", FILEPATH, "2.jpeg");
+        addCategory(existing,"Confections","Desserts, candies, and sweet breads", FILEPATH, "3.jpeg");
+        addCategory(existing,"Dairy Products","Cheeses", FILEPATH, "4.jpeg");
+        addCategory(existing,"Grains/Cereals","Breads, crackers, pasta, and cereal", FILEPATH, "5.jpeg");
+        addCategory(existing,"Meat/Poultry","Prepared meats", FILEPATH, "6.jpeg");
+        addCategory(existing,"Produce","Dried fruit and bean curd", FILEPATH, "7.jpeg");
+        addCategory(existing,"Seafood","Seaweed and fish", FILEPATH, "8.gif");
     }
 
     private void exampleUsers(){
@@ -66,6 +69,21 @@ public class SeedData implements CommandLineRunner {
         addUser(existingUsers, "admin@user.se", "ROLE_ADMIN");
         addUser(existingUsers, "user@user.se", "ROLE_USER");
 
+    }
+
+    private void exampleSubscriptions(){
+        var existingSubscriptions = subscriptionsService.getAll();
+        addSubcription(existingSubscriptions, "admin@user.se", true);
+        addSubcription(existingSubscriptions, "user@user.se", true);
+    }
+
+    private void addSubcription(List<String> existingSubscriptions, String email, boolean active) {
+        for(String sub: existingSubscriptions){
+            if(sub == null) return;
+            if(sub.equals(email)) return;
+        }
+        Subscription newSub = new Subscription(email, active);
+        subscriptionsService.save(newSub);
     }
 
 
@@ -149,7 +167,7 @@ public class SeedData implements CommandLineRunner {
         addProduct(existingProducts, findCatId(existingCats,"Produce") ,"Longlife Tofu",10,4,"Fantastic");
         addProduct(existingProducts, findCatId(existingCats,"Beverages") ,"Rhönbräu Klosterbier",8,125,"Fantastic");
         addProduct(existingProducts, findCatId(existingCats,"Beverages") ,"Lakkalikööri",18,57,"Fantastic");
-        addProduct(existingProducts, findCatId(existingCats,"Condiments") ,"Original Frankfurter grüne Soße",13,32,"Fantastic");    
+        addProduct(existingProducts, findCatId(existingCats,"Condiments") ,"Original Frankfurter grüne Soße",13,32,"Fantastic");
     }
 
     private void addUser(List<UserAccount> existingUsers, String email, String groups) {
@@ -158,17 +176,19 @@ public class SeedData implements CommandLineRunner {
         }
         UserAccount acc = new UserAccount(email, encoderConfig.passwordEncoder().encode("stefan123") , groups);
         userDetailsService.save(acc);
-        
+
     }
 
 
-    private void addCategory(List<Category> existing, String name,String description){
+    private void addCategory(List<Category> existing, String name,String description, String filePath, String fileName){
         for (Category cat : existing) {
             if (cat.getName().equals(name)) return;
         }
         Category cat1 = new Category();
         cat1.setName(name);
         cat1.setDescription(description);
+        cat1.setFilePath(filePath);
+        cat1.setFileName(fileName);
         categoryService.save(cat1);
     }
     private void addProduct(List<Product> existing, int catId, String name,int pris,int stocklevel,String description){
@@ -183,4 +203,7 @@ public class SeedData implements CommandLineRunner {
         product1.setCategory(catId);
         productService.save(product1);
     }
+
+
+
 }

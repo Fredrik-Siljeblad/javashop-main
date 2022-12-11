@@ -1,9 +1,6 @@
 package se.systementor.supershoppen1.shop.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 @Entity
@@ -21,7 +18,7 @@ public class Product {
     public Integer getId() {
         return id;
       }
-    
+
       public void setId(Integer id) {
         this.id = id;
       }
@@ -30,7 +27,7 @@ public class Product {
       {
           name = v;
       }
-  
+
 
       public String getName()
       {
@@ -43,13 +40,21 @@ public class Product {
     public int getPrice() {
         return price;
     }
-  
+
+    //Both set/get Category/CategoryId do the same thing, but set/getCategory messed things up with the db.
+    public void setCategoryId(int d) {
+        categoryId = d;
+    }
+    public int getCategoryId() {
+        return categoryId;
+    }
     public void setCategory(int d) {
         categoryId = d;
     }
     public int getCategory() {
         return categoryId;
     }
+
 
     public void setStockLevel(int i) {
         stockLevel = i;

@@ -4,54 +4,58 @@
       th:replace="~{fragments/layouttemplate :: layout (~{::body})}">
 <head>
 
-  <meta charset="UTF-8"/>
-  <title>replace</title>
+    <meta charset="UTF-8"/>
+    <title>replace</title>
 
 </head>
 <body>
 
 
 <div class="section">
-  <!-- container -->
-  <div class="container">
-    <!-- row -->
-    <div class="row">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
 
-      <!-- section title -->
+        </div>
 
-      <!-- /section title -->
-      <!-- Products tab & slick -->
-                <!-- /product -->
-              </div>
-
-
-    <table>
-      <thead>
-      <tr>
-        <th> Newsletters </th>
-      </tr>
-      </thead>
-      <tobdy>
-        <tr>
-          <td> no books avail</td>
-        </tr>
-        <tr>
-          <td><span> Title</span></td>
-          <td><span> Description</span></td>
-        </tr>
-      </tobdy>
-    </table>
+        <form th:action="createNewsletter" method="GET">
+            <input type="submit" value="Create a newsletter" class="create-newsletter">
+        </form>
 
 
-    <div id="slick-nav-1" class="products-slick-nav"></div>
-            </div>
-            <!-- /tab -->
-          </div>
-      <!-- Products tab & slick -->
-    <!-- /row -->
-  </div>
-  <!-- /container -->
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th> Greeting </th>
+                <th> Body</th>
+                <th> Sent date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--        <tr th:if="${newsletters.empty}">
+                      <td> No newsletters available</td>
+                    </tr>-->
+            <tr th:each="newsletter: ${newsletters}">
+                <td th:text="${newsletter.greeting}"/>
+                <td th:text="${newsletter.body}"/>
+                <td th:text="${newsletter.sentDate}"/>
+                <td> <a class="btn btn-info" th:href="@{/admin/newsletter/edit/{id}(id = ${newsletter.id})}">View Post</a></td>
+                <td> <button class="edit-newsletter-btn"> SEND newsletter </button></td>
+
+            </tr>
+            </tbody>
+        </table>
+
+
+        <div id="slick-nav-1" class="products-slick-nav"></div>
+    </div>
+    <!-- /tab -->
 </div>
+<!-- Products tab & slick -->
+<!-- /row -->
+
+<!-- /container -->
 
 
 
