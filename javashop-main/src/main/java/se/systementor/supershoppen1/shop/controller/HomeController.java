@@ -74,7 +74,7 @@ public class HomeController {
         return productList;
     }
 
-    @GetMapping("/products/{id}")
+    @RequestMapping("/products/{id}")
     String homePage(Model model, @PathVariable("id") int id){
 
         List<Category> categories = categoryService.getAll();
@@ -89,7 +89,7 @@ public class HomeController {
         latestProducts = getProducts(latestProducts);
         model.addAttribute("categories",categories);
         model.addAttribute("lastTen",latestProducts);
-        return "frontpage";
+        return "home";
     }
 
 
