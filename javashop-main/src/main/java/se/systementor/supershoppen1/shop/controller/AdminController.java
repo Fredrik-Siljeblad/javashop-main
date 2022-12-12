@@ -78,8 +78,6 @@ public class AdminController {
         List<CategoryAndProducts> list = functionsUtils.globalCategoryAndProducts(productList,categories);
         model.addAttribute("categories", list);
         model.addAttribute("categoryToEdit",categoryToEdit);
-
-
         return "admin/categories";
     }
 
@@ -106,10 +104,7 @@ public class AdminController {
     @PostMapping("/admin/categories")
     public String saveCategory(@ModelAttribute ("category") Category category, @RequestParam("image") MultipartFile multipartFile) throws IOException {
         categoryService.addCategory(category,multipartFile);
-
         return "redirect:/admin/categories";
-
-
     }
 
     @PostMapping (path="/admin/categories/edit/{id}")

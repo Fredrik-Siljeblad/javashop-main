@@ -46,6 +46,7 @@ public class HomeController {
         } else {
             model.addAttribute("hideSubscription", false);
         }
+
         List<Category> categories = categoryService.getAll();
         List<Product> productList = productService.getAll();
         List<LatestProduct> latestProducts = new ArrayList<>();

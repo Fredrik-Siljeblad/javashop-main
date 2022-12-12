@@ -29,7 +29,8 @@ th:replace="~{fragments/layouttemplate :: layout (~{::body})}">
                                     </button>
                                     <div class="dropdown-menu">
                                         <tr th:each="category : ${categories}">
-                                            <li><a  th:text="${category.getName()}"></a></li> </div>
+                                            <li><a  th:text="${category.getName()}"></a></li>
+                                    </div>
                                 </div>
 
                                 </tr>

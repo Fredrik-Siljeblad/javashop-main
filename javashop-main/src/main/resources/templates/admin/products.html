@@ -14,16 +14,24 @@ th:replace="~{fragments/layouttemplate :: layout (~{::body})}">
         <thead>
             <tr>
               <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Category Id</th>
               <th scope="col">Price</th>
               <th scope="col">Stock level</th>
+                <th scope="col">Campaign percentage</th>
+                <th scope="col">Campaign price</th>
               <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="product : ${products}">
                 <td th:text="${product.getName()}"></td>
+                <td th:text="${product.getDescription()}"></td>
+                <td th:text="${product.getCategory()}"></td>
                 <td th:text="${product.getPrice()}"></td>
                 <td th:text="${product.getStockLevel()}"></td>
+                <td th:text="${product.getCampaignPercentage()}"></td>
+                <td th:text="${product.getCampaignPrice()}"></td>
                 <td>
                     <a th:href="@{/admin/products/edit/{id}(id=${product.getId()})}">Edit</a>
                 </td>

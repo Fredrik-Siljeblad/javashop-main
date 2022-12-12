@@ -6,14 +6,16 @@ import javax.persistence.*;
 @Entity
 public class Product {
     private String name;
-    private double price;
+    private int price;
     private int categoryId;
 
     public int getCategoryId() {
         return categoryId;
     }
+
+
     private int rating;
-    private double campaignPercentage;
+    private int campaignPercentage;
 
 
 
@@ -45,8 +47,8 @@ public class Product {
     public void setPrice(int d) {
         price = d;
     }
-    public String getPrice() {
-        return "$"+ Math.round(price);
+    public int getPrice() {
+        return price;
     }
   
     public void setCategory(int d) {
@@ -72,8 +74,8 @@ public class Product {
         return description;
     }
 
-    public String getCampaignPrice() {
-        return "$"+ Math.round((price - (price * (campaignPercentage/100))));
+    public int getCampaignPrice() {
+        return (price - ((price * campaignPercentage)/100));
     }
 
     public int getRating() {
@@ -84,13 +86,19 @@ public class Product {
         this.rating = rating;
     }
 
-    public String  getCampaignPercentage() {
-        return "-"+Math.round(campaignPercentage) + "%";
+    public int getCampaignPercentage() {
+        return campaignPercentage;
     }
 
     public void setCampaignPercentage(int campaignPercentage) {
         this.campaignPercentage = campaignPercentage;
     }
+
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
 
     
 }

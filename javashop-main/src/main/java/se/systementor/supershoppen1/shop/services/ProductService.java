@@ -43,7 +43,6 @@ public class ProductService {
         var product = repository.findById(productId);
         if (product == null)
             throw new IllegalArgumentException();
-
         updatedProduct.setId(productId);
         return repository.save(updatedProduct);
     }
