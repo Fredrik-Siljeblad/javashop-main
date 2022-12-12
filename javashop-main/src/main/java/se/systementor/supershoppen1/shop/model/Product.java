@@ -36,7 +36,7 @@ public class Product {
     public Integer getId() {
         return id;
       }
-    
+
       public void setId(Integer id) {
         this.id = id;
       }
@@ -45,7 +45,7 @@ public class Product {
       {
           name = v;
       }
-  
+
 
       public String getName()
       {
@@ -58,13 +58,21 @@ public class Product {
     public int getPrice() {
         return price;
     }
-  
+
+    //Both set/get Category/CategoryId do the same thing, but set/getCategory messed things up with the db.
+    public void setCategoryId(int d) {
+        categoryId = d;
+    }
+    public int getCategoryId() {
+        return categoryId;
+    }
     public void setCategory(int d) {
         categoryId = d;
     }
     public int getCategory() {
         return categoryId;
     }
+
 
     public void setStockLevel(int i) {
         stockLevel = i;
@@ -81,6 +89,7 @@ public class Product {
     public String getDescription() {
         return description;
     }
+
 
     public int getCampaignPrice() {
         return (price - ((price * campaignPercentage)/100));
@@ -127,5 +136,22 @@ public class Product {
     public void setCategoryName(String name) {
         this.categoryName = name;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        return id.equals(product.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+    
+
 }
 

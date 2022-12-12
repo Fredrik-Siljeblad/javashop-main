@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" 
 xmlns:th="http://www.thymeleaf.org" 
-th:replace="~{fragments/layouttemplate :: layout (~{::body})}">
+th:replace="~{fragments/layouttemplate :: layout( ~{::body})}">
     <head>
     <meta charset="UTF-8"/>
     <title>replace</title>
@@ -69,6 +69,7 @@ th:replace="~{fragments/layouttemplate :: layout (~{::body})}">
                                             <div class="prices">
                                                 <h4 class="product-price" th:text="${last10.getCampaignPrice()}">$980.00 </h4>
                                                 <del class="product-old-price" th:text="${last10.getPrice()}"></del>
+
 
                                             </div>
                                             <div class="product-rating">
