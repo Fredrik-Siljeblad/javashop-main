@@ -27,14 +27,14 @@ import se.systementor.supershoppen1.shop.services.ProductService;
 
 @Controller
 public class AdminController {
-    private  ProductService productService;
+    private ProductService productService;
     private NewsletterService newsletterService;
     private CategoryService categoryService;
 
     @Autowired
     public AdminController(ProductService productService,CategoryService categoryService ) {
         this.productService = productService;
-        this.categoryService =categoryService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping(path="/admin/products")
@@ -90,9 +90,10 @@ public class AdminController {
     }
 
     @GetMapping(path="/admin/products/edit/{id}")
-    String editProduct(@PathVariable("id") int productId, Model model)
-    {
+    String editProduct(@PathVariable("id") int productId, Model model) {
         Product product = productService.get(productId);
+        return "";
+    }
 
     @GetMapping("/admin/categories/new")
     public String createCategoryForm(Model model) {

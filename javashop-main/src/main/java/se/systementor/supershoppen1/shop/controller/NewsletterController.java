@@ -6,15 +6,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import se.systementor.supershoppen1.shop.model.Newsletter;
+import se.systementor.supershoppen1.shop.model.Subscription;
 import se.systementor.supershoppen1.shop.services.NewsletterService;
+import se.systementor.supershoppen1.shop.services.SubscriptionsService;
+
+import java.util.List;
 
 @Controller
 public class NewsletterController {
     private NewsletterService newsletterService;
+    private SubscriptionsService subscriptionsService;
 
     @Autowired
-    public NewsletterController(NewsletterService newsletterService) {
+    public NewsletterController(NewsletterService newsletterService, SubscriptionsService subscriptionsService) {
         this.newsletterService = newsletterService;
+        this.subscriptionsService = subscriptionsService;
     }
 
     // Endpoint to create a newsletter.
@@ -30,7 +36,6 @@ public class NewsletterController {
     // Create newsletter from /admin/newsletter submit btn.
     @PostMapping(path = "/admin/newsletter")
     public String submitForm(@ModelAttribute("newsletter") Newsletter newsletters){
-
         newsletterService.create(newsletters);
         return "redirect:/admin/newsletter";
     }
@@ -46,7 +51,6 @@ public class NewsletterController {
     @GetMapping(path = "/admin/newsletter/edit/{id}")
     public String showNewsletterById(@PathVariable Integer id, Model model){
        model.addAttribute("newsletter", newsletterService.getById(id));
-       System.out.println("test get");
        return "editnewsletter";
     }
 
@@ -60,4 +64,28 @@ public class NewsletterController {
         newsletterService.create(existingNewsletter);
         return "redirect:/admin/newsletter";
     }
+
+
+    // Visa sent news letter sidan beroende på vilket newsletter man har valt.
+    /*@GetMapping(path= "/admin/sentnewsletters/{id}")
+    public String showSentNewslettersById(@PathVariable Integer id, Model model){
+        //model.addAttribute("newsletters", newsletterService.getById(id));
+        System.out.println("newsletter");
+        model.addAttribute("subscriptionList", subscriptionsService.getAll());
+
+        System.out.println("sent newsletters");
+        return "sentnewsletters";
+    }*/
+
+    @GetMapping(path= "/admin/sentnewsletters/{id}")
+    public String showSentNewslettersById(@PathVariable Integer id, Model model){
+        model.addAttribute("newsletters", newsletterService.getById(id));
+        System.out.println("newsletter");
+        model.addAttribute("subscriptionList", subscriptionsService.getSignedUp());
+
+        System.out.println("sent newsletters");
+        return "sentnewsletters";
+    }
+
+
 }

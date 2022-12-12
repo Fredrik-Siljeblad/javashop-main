@@ -48,7 +48,7 @@ public class CategoryService {
     }
 
     public Category addCategory (Category categoryToAdd, MultipartFile multipartFile) throws IOException {
-        String uploadDir = "/Users/williamle/Documents/GitHub/javashop-main/javashop-main/src/main/resources/static/images/Categories";
+        String uploadDir = "src/main/resources/static/images/Categories";
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         categoryToAdd.setFilePath(uploadDir);
         categoryToAdd.setFileName(fileName);
@@ -63,7 +63,7 @@ public class CategoryService {
     }
 
     public Category editCategory(Integer id, Category category, MultipartFile multipartFile) throws IOException {
-        String uploadDir = "/Users/williamle/Documents/GitHub/javashop-main/javashop-main/src/main/resources/static/images/Categories";
+        String uploadDir = "src/main/resources/static/images/Categories";
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         FileUploadUtil.saveFile(uploadDir,fileName,multipartFile);
         Category categoryToEdit = repository.findById(id).get();
