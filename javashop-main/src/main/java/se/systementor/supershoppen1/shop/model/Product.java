@@ -8,6 +8,24 @@ public class Product {
     private String name;
     private int price;
     private int categoryId;
+    private String categoryName;
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    private String filePath;
+    private String fileName;
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+
+    private int rating;
+    private int campaignPercentage;
+
+
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -72,6 +90,53 @@ public class Product {
         return description;
     }
 
+
+    public int getCampaignPrice() {
+        return (price - ((price * campaignPercentage)/100));
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public int getCampaignPercentage() {
+        return campaignPercentage;
+    }
+
+    public void setCampaignPercentage(int campaignPercentage) {
+        this.campaignPercentage = campaignPercentage;
+    }
+
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+
+    public void setCategoryName(String name) {
+        this.categoryName = name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -87,5 +152,6 @@ public class Product {
         return id.hashCode();
     }
     
+
 }
 

@@ -36,7 +36,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form th:action="@{/admin/categories/edit/{id} (id=${category.category.id})}  "
+                        <form th:action="@{/admin/categories/edit/{id} (id=${category.category.id})}"
                               th:object="${categoryToEdit}" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label> Category picture </label>

@@ -841,6 +841,14 @@ textarea.input {
   color: #FFF;
 }
 
+.prices{
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 1rem;
+  justify-content: center;
+  margin-right: 0.5rem;
+}
+
 .hot-deal p {
   text-transform: uppercase;
   font-size: 24px;
@@ -934,6 +942,7 @@ textarea.input {
 .product .product-body .product-price {
   color: #D10024;
   font-size: 18px;
+  margin-right: 1.2rem;
 }
 
 .product .product-body .product-price .product-old-price {
