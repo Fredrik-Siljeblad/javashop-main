@@ -59,13 +59,6 @@ public class Product {
         return price;
     }
 
-    //Both set/get Category/CategoryId do the same thing, but set/getCategory messed things up with the db.
-    public void setCategoryId(int d) {
-        categoryId = d;
-    }
-    public int getCategoryId() {
-        return categoryId;
-    }
     public void setCategory(int d) {
         categoryId = d;
     }

@@ -36,11 +36,17 @@ public class CategoryService {
     }
 
     public Category get(Integer id){
-        return repository.findById(id).get();
+        if(repository.findById(id).isPresent()) {
+            return repository.findById(id).get();
+        }
+        return null;
     }
 
     public String getName(Integer id){
-        return repository.findById(id).get().getName();
+        if (repository.findById(id).isPresent()) {
+            return repository.findById(id).get().getName();
+        }
+        return null;
     }
 
     public void save(Category product1) {
