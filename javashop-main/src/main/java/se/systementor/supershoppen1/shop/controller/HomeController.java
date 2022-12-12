@@ -49,16 +49,47 @@ public class HomeController {
 
         List<Category> categories = categoryService.getAll();
         List<Product> productList = productService.getAll();
-        List<LatestProduct> latestProducts = new ArrayList<>();
-        for (Product product: productList) {
-            latestProducts.add(new LatestProduct(product,categoryService.get(product.getCategoryId())));
-        }
-        List<LatestProduct> latestProductsSort = latestProducts.subList(latestProducts.size()-11, latestProducts.size()-1);
-        model.addAttribute("categories",categories);
 
-        model.addAttribute("lastTen",latestProductsSort);
+        productList = getProducts(productList);
+
+        model.addAttribute("categories",categories);
+        model.addAttribute("lastTen",productList);
 
         return "home";
+    }
+
+    private List<Product> getProducts(List<Product> productList) {
+        for (Product product : productList) {
+            Category category = categoryService.get(product.getCategoryId());
+            product.setCategoryName(category.getName());
+            if(product.getFileName() == null){
+                product.setFilePath(category.getFilePath());
+                product.setFileName(category.getFileName());
+            }
+        }
+
+        if(productList.size() >10){
+            productList = productList.subList(productList.size() -11, productList.size() -1);
+        }
+        return productList;
+    }
+
+    @GetMapping("/products/{id}")
+    String homePage(Model model, @PathVariable("id") int id){
+
+        List<Category> categories = categoryService.getAll();
+        List<Product> latestProducts = new ArrayList<>();
+
+        if (id != 0){
+            latestProducts = productService.findAllProductsByCategoryId(id);
+        }else {
+            latestProducts = productService.getAll();
+        }
+
+        latestProducts = getProducts(latestProducts);
+        model.addAttribute("categories",categories);
+        model.addAttribute("lastTen",latestProducts);
+        return "frontpage";
     }
 
 

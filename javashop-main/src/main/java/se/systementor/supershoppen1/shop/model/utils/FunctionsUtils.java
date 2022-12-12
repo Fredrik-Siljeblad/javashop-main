@@ -15,7 +15,7 @@ public class FunctionsUtils {
         for( Category category: categoryList){
             List<Product> productList1 = new ArrayList<>();
             for(Product product : productList){
-                if (product.getCategory() == category.getId()){
+                if (product.getCategoryId() == category.getId()){
                     productList1.add(product);
                 }
             }

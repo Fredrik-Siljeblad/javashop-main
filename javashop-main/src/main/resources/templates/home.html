@@ -29,7 +29,7 @@ th:replace="~{fragments/layouttemplate :: layout (~{::body})}">
                                     </button>
                                     <div class="dropdown-menu">
                                         <tr th:each="category : ${categories}">
-                                            <li><a  th:text="${category.getName()}"></a></li>
+                                            <li><a th:href="'products'+'/'+ ${category.getId()}" th:text="${category.getName()}"></a></li>
                                     </div>
                                 </div>
 
@@ -55,20 +55,20 @@ th:replace="~{fragments/layouttemplate :: layout (~{::body})}">
                                     <tr th:each=" last10 : ${lastTen}">
                                     <div class="product">
                                         <div class="product-img">
-                                            <img th:src="${last10.category.getFilePath().substring(last10.category.getFilePath().length()-18)} + '/' + ${last10.category.getFileName()}" alt="">
+                                            <img th:src="${(last10.getFilePath().substring(last10.getFilePath().length()-18)+'/'+ last10.getFileName())}" alt="">
                                             <div class="product-label">
-                                                <span class="sale" th:text="${last10.product.getCampaignPercentage()}"></span>
+                                                <span class="sale" th:text="${last10.getCampaignPercentage()}"></span>
                                                 <span class="new">NEW</span>
                                             </div>
                                         </div>
 
 
                                         <div class="product-body">
-                                            <p class="product-category" th:text="${last10.category.getName()}">Category</p>
-                                            <h3 class="product-name"><a href="#" th:text="${last10.product.getName()}">product name goes here</a></h3>
+                                            <p class="product-category" th:text="${last10.getCategoryName()}">Category</p>
+                                            <h3 class="product-name"><a href="#" th:text="${last10.getName()}">product name goes here</a></h3>
                                             <div class="prices">
-                                                <h4 class="product-price" th:text="${last10.product.getCampaignPrice()}">$980.00 </h4>
-                                                <del class="product-old-price" th:text="${last10.product.getPrice()}"></del>
+                                                <h4 class="product-price" th:text="${last10.getCampaignPrice()}">$980.00 </h4>
+                                                <del class="product-old-price" th:text="${last10.getPrice()}"></del>
 
                                             </div>
                                             <div class="product-rating">

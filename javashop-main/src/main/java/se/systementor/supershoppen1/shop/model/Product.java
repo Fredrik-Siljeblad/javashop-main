@@ -8,6 +8,14 @@ public class Product {
     private String name;
     private int price;
     private int categoryId;
+    private String categoryName;
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    private String filePath;
+    private String fileName;
 
     public int getCategoryId() {
         return categoryId;
@@ -99,7 +107,25 @@ public class Product {
         this.categoryId = categoryId;
     }
 
+    public String getFilePath() {
+        return filePath;
+    }
 
-    
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+
+    public void setCategoryName(String name) {
+        this.categoryName = name;
+    }
 }
 
