@@ -77,7 +77,7 @@ public class NewsletterController {
         return "sentnewsletters";
     }*/
 
-    @GetMapping(path= "/admin/sentnewsletters/{id}")
+    @RequestMapping(path= "/admin/sentnewsletters/{id}")
     public String showSentNewslettersById(@PathVariable Integer id, Model model){
         model.addAttribute("newsletters", newsletterService.getById(id));
         System.out.println("newsletter");

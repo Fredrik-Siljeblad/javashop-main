@@ -19,7 +19,7 @@
 
         </div>
 
-        <!--<table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped">
             <thead>
             <tr>
                 <th> Greeting </th>
@@ -36,19 +36,18 @@
 
             </tr>
             </tbody>
-        </table>-->
+        </table>
 
 
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th> ID </th>
                         <th> Sent to </th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="subscriptionLists: ${subscriptionList}">
-                        <td th:text="${subscriptionLists.email}"/>
+                        <td th:text="${subscriptionLists}"/>
                     </tr>
                     </tbody>
                 </table>
