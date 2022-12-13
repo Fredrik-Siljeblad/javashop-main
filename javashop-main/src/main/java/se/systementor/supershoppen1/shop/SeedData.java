@@ -37,10 +37,10 @@ public class SeedData implements CommandLineRunner {
         // category();
 
 
-        //exampleCategories();
-        //exampleProducts();
-        //exampleUsers();
-        //exampleSubscriptions();
+        /*exampleCategories();
+        exampleProducts();
+        exampleUsers();
+        exampleSubscriptions();*/
     }
 
 
