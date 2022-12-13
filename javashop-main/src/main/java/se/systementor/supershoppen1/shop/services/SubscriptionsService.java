@@ -50,7 +50,15 @@ public class SubscriptionsService {
     }
 
     public boolean isSubscriber(String user) {
-        return this.getAll().contains(user);
+        List<Subscription> subscribers = (List<Subscription>) this.repository.findAll();
+        for (Subscription sub:subscribers) {
+            if(sub.getEmail().equals(user) && sub.isActive()) {
+                return true;
+            }
+        }
+        return false;
     }
+
+
 }
 

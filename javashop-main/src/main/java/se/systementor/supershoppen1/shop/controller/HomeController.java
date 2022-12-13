@@ -37,15 +37,7 @@ public class HomeController {
     @GetMapping(path="/")
     String empty(Model model)
     {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Object ud = auth.getPrincipal();
-        if (ud instanceof UserDetails) {
-            String user = ((UserDetails)ud).getUsername();
-            boolean va2 = subscriptionsService.isSubscriber(user);
-            model.addAttribute("hideSubscription", va2);
-        } else {
-            model.addAttribute("hideSubscription", false);
-        }
+        hideSubscription(model);
 
         List<Category> categories = categoryService.getAll();
         List<Product> productList = productService.getAll();
@@ -56,6 +48,19 @@ public class HomeController {
         model.addAttribute("lastTen",productList);
 
         return "home";
+    }
+
+    public void hideSubscription(Model model) {
+
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    Object ud = auth.getPrincipal();
+        if (ud instanceof UserDetails) {
+        String user = ((UserDetails)ud).getUsername();
+        boolean va2 = subscriptionsService.isSubscriber(user);
+        model.addAttribute("hideSubscription", va2);
+    } else {
+        model.addAttribute("hideSubscription", false);
+    }
     }
 
     private List<Product> getProducts(List<Product> productList) {

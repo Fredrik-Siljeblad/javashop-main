@@ -33,16 +33,20 @@ public class AdminController {
     private NewsletterService newsletterService;
     private final CategoryService categoryService;
 
+    private final HomeController homeController;
+
 
     @Autowired
-    public AdminController(ProductService productService,CategoryService categoryService) {
+    public AdminController(ProductService productService,CategoryService categoryService, HomeController homeController) {
         this.productService = productService;
-        this.categoryService =categoryService;
+        this.categoryService = categoryService;
+        this.homeController = homeController;
     }
 
     @GetMapping(path="/admin/products")
     String empty(Model model)
     {
+        this.homeController.hideSubscription(model);
         model.addAttribute("products", productService.getAll());
         return "admin/products";
     }
@@ -71,6 +75,7 @@ public class AdminController {
     @GetMapping(path="/admin/categories")
     String showAdminCategories(Model model)
     {
+        this.homeController.hideSubscription(model);
         FunctionsUtils functionsUtils = new FunctionsUtils();
         Category categoryToEdit = new Category();
         List<Category> categories = categoryService.getAll();
@@ -91,12 +96,14 @@ public class AdminController {
     }
 
     @GetMapping("/addNewProduct")
-    public String addNewProduct() {
+    public String addNewProduct(Model model) {
+        this.homeController.hideSubscription(model);
         return "admin/add-product";
     }
 
     @GetMapping("/admin/categories/new")
     public String createCategoryForm(Model model) {
+        this.homeController.hideSubscription(model);
         Category category = new Category();
         model.addAttribute("category", category);
         return "admin/create_category";
@@ -113,4 +120,6 @@ public class AdminController {
         categoryService.editCategory(id,category,multipartFile);
         return "redirect:/admin/categories";
     }
+
+
 }
