@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import se.systementor.supershoppen1.shop.model.Newsletter;
+import se.systementor.supershoppen1.shop.model.utils.FileUploadUtil;
+import se.systementor.supershoppen1.shop.model.utils.FunctionsUtils;
 import se.systementor.supershoppen1.shop.services.NewsletterService;
 import se.systementor.supershoppen1.shop.model.Category;
 import se.systementor.supershoppen1.shop.model.Product;
@@ -27,19 +29,25 @@ import se.systementor.supershoppen1.shop.services.ProductService;
 
 @Controller
 public class AdminController {
-    private ProductService productService;
+
+    private final  ProductService productService;
     private NewsletterService newsletterService;
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
+
+    private final HomeController homeController;
+
 
     @Autowired
-    public AdminController(ProductService productService,CategoryService categoryService ) {
+    public AdminController(ProductService productService,CategoryService categoryService, HomeController homeController) {
         this.productService = productService;
         this.categoryService = categoryService;
+        this.homeController = homeController;
     }
 
     @GetMapping(path="/admin/products")
     String empty(Model model)
     {
+        this.homeController.hideSubscription(model);
         model.addAttribute("products", productService.getAll());
         return "admin/products";
     }
@@ -68,35 +76,36 @@ public class AdminController {
     @GetMapping(path="/admin/categories")
     String showAdminCategories(Model model)
     {
+        this.homeController.hideSubscription(model);
+        FunctionsUtils functionsUtils = new FunctionsUtils();
         Category categoryToEdit = new Category();
         List<Category> categories = categoryService.getAll();
         List<Product> productList = productService.getAll();
-        List<CategoryAndProducts> list = new ArrayList<>()  ;
-
-        for( Category category: categories){
-            List<Product> productList1 = new ArrayList<>();
-            for(Product product : productList){
-                if (product.getCategory() == category.getId()){
-                    productList1.add(product);
-                }
-            }
-            list.add(new CategoryAndProducts(category,productList1,convertImagePath(category.getFilePath(),category.getFileName())));
-        }
-
+        List<CategoryAndProducts> list = functionsUtils.globalCategoryAndProducts(productList,categories);
         model.addAttribute("categories", list);
         model.addAttribute("categoryToEdit",categoryToEdit);
-
         return "admin/categories";
     }
 
     @GetMapping(path="/admin/products/edit/{id}")
-    String editProduct(@PathVariable("id") int productId, Model model) {
-        Product product = productService.get(productId);
-        return "";
+
+    String editProduct(@PathVariable("id") int productId, Model model)
+    {
+        Product product = productService.get(productId).orElse(null);
+
+        model.addAttribute("product", product);
+        return "admin/update-product";
+    }
+
+    @GetMapping("/addNewProduct")
+    public String addNewProduct(Model model) {
+        this.homeController.hideSubscription(model);
+        return "admin/add-product";
     }
 
     @GetMapping("/admin/categories/new")
     public String createCategoryForm(Model model) {
+        this.homeController.hideSubscription(model);
         Category category = new Category();
         model.addAttribute("category", category);
         return "admin/create_category";
@@ -105,16 +114,7 @@ public class AdminController {
     @PostMapping("/admin/categories")
     public String saveCategory(@ModelAttribute ("category") Category category, @RequestParam("image") MultipartFile multipartFile) throws IOException {
         categoryService.addCategory(category,multipartFile);
-
         return "redirect:/admin/categories";
-
-
-    };
-    public String convertImagePath(String filePath,String fileName){
-        if(filePath != null){
-            return filePath.substring(filePath.length()-18) +"/"+fileName;
-        }
-        return "File path string is empty";
     }
 
     @PostMapping (path="/admin/categories/edit/{id}")
@@ -122,4 +122,6 @@ public class AdminController {
         categoryService.editCategory(id,category,multipartFile);
         return "redirect:/admin/categories";
     }
+
+
 }
