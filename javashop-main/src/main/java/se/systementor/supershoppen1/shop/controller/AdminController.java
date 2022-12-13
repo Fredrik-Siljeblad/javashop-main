@@ -29,6 +29,7 @@ import se.systementor.supershoppen1.shop.services.ProductService;
 
 @Controller
 public class AdminController {
+
     private final  ProductService productService;
     private NewsletterService newsletterService;
     private final CategoryService categoryService;
@@ -87,6 +88,7 @@ public class AdminController {
     }
 
     @GetMapping(path="/admin/products/edit/{id}")
+
     String editProduct(@PathVariable("id") int productId, Model model)
     {
         Product product = productService.get(productId).orElse(null);
