@@ -1,7 +1,13 @@
 package se.systementor.supershoppen1.shop.model;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProductRepository extends CrudRepository<Product, Integer> {
-    
+import java.util.List;
+
+public interface ProductRepository extends JpaRepository<Product, Integer> {
+
+
+    List<Product> findProductByCategoryId(Integer id);
+
+
 }

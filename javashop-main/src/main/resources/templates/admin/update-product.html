@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layouttemplate :: layout (~{::body})}">
+<head>
+  <meta charset="UTF-8"/>
+  <title>replace</title>
+</head>
+<body>
+<div class="container">
+  <h1 th:text="ProductId + ': #' + ${product.getId()}"></h1>
+  <form action="#"
+        th:action="@{/update/{id}(id=${product.getId()})}"
+        th:object="${product}"
+        method="post">
+    <div class="form-group">
+      <label>Name</label>
+      <input class="form-control" th:value="${product.getName()}" required type="text" name="name">
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <input class="form-control" th:value="${product.getDescription()}" required type="text" name="description">
+    </div>
+    <div class="form-group">
+      <label>CategoryId</label>
+      <input class="form-control" th:value="${product.getCategory()}" required type="number" name="categoryId">
+    </div>
+    <div class="form-group">
+      <label>Price</label>
+      <input class="form-control" th:value="${product.getPrice()}" required type="number" name="price">
+    </div>
+    <div class="form-group">
+      <label>Stock-Level</label>
+      <input class="form-control" th:value="${product.getStockLevel()}" required type="number" name="stockLevel">
+    </div>
+    <div class="form-group">
+      <label>Campaign percentage</label>
+      <input class="form-control" th:value="${product.getCampaignPercentage()}" required type="number" name="campaignPercentage">
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+      Apply
+    </button>
+  </form>
+</div>
+
+
+
+</body>
+</html>
