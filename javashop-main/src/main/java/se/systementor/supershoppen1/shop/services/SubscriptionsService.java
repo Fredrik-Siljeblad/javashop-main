@@ -51,9 +51,12 @@ public class SubscriptionsService {
 
     public boolean isSubscriber(String user) {
         List<Subscription> subscribers = (List<Subscription>) this.repository.findAll();
+        if(subscribers == null) return false;
         for (Subscription sub:subscribers) {
-            if(sub.getEmail().equals(user) && sub.isActive()) {
-                return true;
+            if(sub.getEmail() != null) {
+                if (sub.getEmail().equals(user) && sub.isActive()) {
+                    return true;
+                }
             }
         }
         return false;
