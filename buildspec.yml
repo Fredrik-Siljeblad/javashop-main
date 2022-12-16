@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Entered prebuild phase on `date`
+      build:
+        commands:
+          - echo Build started on `date`
+          - cd javashop-main
+          - mvn -DskipTests clean package
+            post_build:
+              commands:
+                - echo Build completed on `date`
+  artifacts:
+    files:
+      - javashop-main/target/shop-0.0.1-SNAPSHOT.jar
+      - appspec.yml
+        discard-paths: yes
