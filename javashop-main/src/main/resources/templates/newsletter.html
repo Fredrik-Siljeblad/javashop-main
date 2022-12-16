@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layouttemplate :: layout (~{::body})}">
+<head>
+
+    <meta charset="UTF-8"/>
+    <title>replace</title>
+
+</head>
+<body>
+
+
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+        </div>
+
+        <form th:action="createNewsletter" method="GET">
+            <input type="submit" value="Create a newsletter" class="create-newsletter">
+        </form>
+
+
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th> Greeting </th>
+                <th> Body</th>
+                <th> Sent date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--        <tr th:if="${newsletters.empty}">
+                      <td> No newsletters available</td>
+                    </tr>-->
+            <tr th:each="newsletter: ${newsletters}">
+                <td th:text="${newsletter.greeting}"/>
+                <td th:text="${newsletter.body}"/>
+                <td th:text="${newsletter.sentDate}"/>
+                <td> <a class="btn btn-info" th:href="@{/admin/newsletter/edit/{id}(id = ${newsletter.id})}">Edit Post</a></td>
+                <td> <a class="edit-newsletter-btn"> SEND newsletter </a></td>
+                <td> <a class="btn btn-info" th:href="@{/admin/sentnewsletters/{id}(id = ${newsletter.id})}">View recipients</a></td>
+
+            </tr>
+            </tbody>
+        </table>
+
+
+        <div id="slick-nav-1" class="products-slick-nav"></div>
+    </div>
+    <!-- /tab -->
+</div>
+<!-- Products tab & slick -->
+<!-- /row -->
+
+<!-- /container -->
+
+
+
+</body>
+</html>

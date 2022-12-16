@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layouttemplate :: layout (~{::body})}">
+<head>
+
+  <meta charset="UTF-8"/>
+  <title>replace</title>
+
+</head>
+<body>
+
+
+<div class="section">
+  <!-- container -->
+  <div class="container">
+    <!-- row -->
+    <div class="row">
+
+      <!-- section title -->
+
+      <!-- /section title -->
+      <!-- Products tab & slick -->
+                <!-- /product -->
+              </div>
+    <div class="newsletter-container">
+      <form action="#" th:action="@{/admin/newsletter}" th:object="${newsletter}" method="post">
+
+      <label>
+        <h2> Title: </h2>
+
+        <input type="text" name="newsletterTitle" th:field="*{greeting}" class="textBox"/>
+      </label>
+
+      <label class="textBoxNewsletter">
+        <h2> Content: </h2>
+        <textarea type="text" value="content" name="newsletterText" th:field="*{body}" class="textBoxNewsletter" method="post"> </textarea>
+
+      </label>
+      <input type="submit" class="submit-btn"/>
+      </form>
+
+    </div>
+
+    <div id="slick-nav-1" class="products-slick-nav"></div>
+            </div>
+            <!-- /tab -->
+          </div>
+        </div>
+      </div>
+      <!-- Products tab & slick -->
+    </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+</div>
+
+
+
+</body>
+</html>
