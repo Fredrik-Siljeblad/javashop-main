@@ -7,7 +7,8 @@ phases:
       build:
         commands:
           - echo Build started on `date`
-          - mvn -f javashop-main/pom.xml -DskipTests clean package
+          - cd javashop-main
+          - mvn -DskipTests clean package
             post_build:
               commands:
                 - echo Build completed on `date`
