@@ -1,3 +1,4 @@
+
 package se.systementor.supershoppen1.shop.services.EMailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,13 @@ public class EmailServiceImp {
         public void sendSimpleMessage(Email mailObj) {
 
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(mailObj.getSenderName());
+            message.setFrom(mailObj.getEmail());
             message.setTo("noreply@systementor.se");
-            message.setSubject(mailObj.getSubject());
-            message.setText(mailObj.getText());
+            message.setSubject(mailObj.getEmailContent());
+            message.setText(mailObj.getEmailContent());
             emailSender.send(message);
 
         }
 
 }
+

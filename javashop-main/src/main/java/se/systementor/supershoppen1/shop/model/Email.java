@@ -1,26 +1,45 @@
 package se.systementor.supershoppen1.shop.model;
 
 public class Email {
-    public String senderName;
 
-    public String getSenderName() {
-        return senderName;
+    private String emailName; // Senders name
+    private String email; // Senders email
+    private String emailSubject; // Subject / ärende
+    private String emailContent; // Body / Innehåll
+
+    public Email() {
+
     }
 
-    public String text;
-    public String to;
-    public String subject;
-
-
-    public String getText() {
-        return text;
+    public String getEmailName() {
+        return emailName;
     }
 
-    public String getTo() {
-        return to;
+    public void setEmailName(String emailName) {
+        this.emailName = emailName;
     }
 
-    public String getSubject() {
-        return subject;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmailSubject() {
+        return emailSubject;
+    }
+
+    public void setEmailSubject(String emailSubject) {
+        this.emailSubject = emailSubject;
+    }
+
+    public String getEmailContent() {
+        return emailContent;
+    }
+
+    public void setEmailContent(String emailContent) {
+        this.emailContent = emailContent;
     }
 }

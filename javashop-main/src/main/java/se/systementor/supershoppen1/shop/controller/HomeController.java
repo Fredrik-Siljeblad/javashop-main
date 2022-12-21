@@ -12,11 +12,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import se.systementor.supershoppen1.shop.model.Category;
+import se.systementor.supershoppen1.shop.model.Email;
 import se.systementor.supershoppen1.shop.model.Product;
 import se.systementor.supershoppen1.shop.model.utils.CategoryAndProducts;
 import se.systementor.supershoppen1.shop.model.utils.FunctionsUtils;
 import se.systementor.supershoppen1.shop.model.utils.LatestProduct;
 import se.systementor.supershoppen1.shop.services.CategoryService;
+//import se.systementor.supershoppen1.shop.services.EMailService.EmailServiceImp;
 import se.systementor.supershoppen1.shop.services.ProductService;
 import se.systementor.supershoppen1.shop.services.SubscriptionsService;
 
@@ -25,6 +27,7 @@ public class HomeController {
     private  ProductService productService;
     private SubscriptionsService subscriptionsService;
     private CategoryService categoryService;
+    //private EmailServiceImp emailService;
 
 
     @Autowired
@@ -32,6 +35,7 @@ public class HomeController {
         this.productService = productService;
         this.subscriptionsService = subscriptionsService;
         this.categoryService = categoryService;
+        //this.emailService = emailService;
     }
 
     @GetMapping(path="/")
@@ -106,6 +110,12 @@ public class HomeController {
         return "contact";
     }
 
+    @RequestMapping(path = "/contact")
+    public String sendContactForm(@ModelAttribute Email email, Model model){
+        model.addAttribute("email", email);
+        //emailService.sendSimpleMessage(email);
+        return "contact";
+    }
 
 
 
