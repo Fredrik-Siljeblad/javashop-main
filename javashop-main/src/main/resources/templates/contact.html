@@ -20,15 +20,18 @@
         </div>
 
 
+        <div class="contactUs-form">
         <h1>Form</h1>
+            <h4> To get in touch with us, please fill out the form </h4>
         <form action="#" th:action="@{/contact}" th:object="${email}" method="POST">
-            <p>Name: <input type="text" th:field="*{emailName}"/></input>
+            <p>  Name: <input type="text" th:field="*{emailName}"/></input>
             <p>E-post: <input type="text" th:field="*{email}"/></input>
             <p>Ärende: <input type="text" th:field="*{emailSubject}"/></input>
-            <p>Message: <input type="text" th:field="*{emailContent}"/></input>
-            <p><input type="submit" value="Submit" />
+            <p>Message: <input class="contactUs-body" type="text" th:field="*{emailContent}"/></input>
+            <p><input class="contactUs-submit" type="submit" value="Submit" />
             <p type="reset" value="Reset" /></input>
         </form>
+        </div>
 
 
         <div id="slick-nav-1" class="products-slick-nav"></div>
