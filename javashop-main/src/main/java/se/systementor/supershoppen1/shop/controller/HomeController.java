@@ -74,7 +74,7 @@ public class HomeController {
         }
 
         if(productList.size() >10){
-            productList = productList.subList(productList.size() -11, productList.size() -1);
+            productList = productList.subList(productList.size() -10, productList.size());
         }
         return productList;
     }
