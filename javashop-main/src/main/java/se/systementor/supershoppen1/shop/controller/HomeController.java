@@ -110,7 +110,6 @@ public class HomeController {
     @PostMapping(path = "/contact")
     public String sendContactForm(@ModelAttribute Email email, Model model){
         model.addAttribute("email", email);
-
         emailService.sendSimpleMessage(email);
         return "contact";
     }

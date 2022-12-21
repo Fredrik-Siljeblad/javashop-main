@@ -31,8 +31,7 @@ public class EmailServiceImp {
             return mailSender;
         }
 
-        public void sendSimpleMessage(Email mailObj) {
-
+        public String sendSimpleMessage(Email mailObj) {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom(mailObj.getEmail());
             message.setTo("lukas.lundblad@live.se");
@@ -40,6 +39,8 @@ public class EmailServiceImp {
             message.setText(mailObj.getEmailContent());
             message.setReplyTo(mailObj.getEmailName());
             getJavaMailSender().send(message);
+
+            return "Mail sending succeeded";
         }
 
 
