@@ -99,6 +99,10 @@ public class HomeController {
 
     @GetMapping(path = "/contact")
     public String contactUsForm (Model model){
+
+
+
+
         return "contact";
     }
 
