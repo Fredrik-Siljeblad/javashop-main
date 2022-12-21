@@ -97,8 +97,10 @@ public class HomeController {
         return "home";
     }
 
-
-
+    @GetMapping(path = "/contact")
+    public String contactUsForm (Model model){
+        return "contact";
+    }
 
 
 
