@@ -18,7 +18,7 @@ import se.systementor.supershoppen1.shop.model.utils.CategoryAndProducts;
 import se.systementor.supershoppen1.shop.model.utils.FunctionsUtils;
 import se.systementor.supershoppen1.shop.model.utils.LatestProduct;
 import se.systementor.supershoppen1.shop.services.CategoryService;
-//import se.systementor.supershoppen1.shop.services.EMailService.EmailServiceImp;
+import se.systementor.supershoppen1.shop.services.EMailService.EmailServiceImp;
 import se.systementor.supershoppen1.shop.services.ProductService;
 import se.systementor.supershoppen1.shop.services.SubscriptionsService;
 
@@ -27,15 +27,15 @@ public class HomeController {
     private  ProductService productService;
     private SubscriptionsService subscriptionsService;
     private CategoryService categoryService;
-    //private EmailServiceImp emailService;
+    private EmailServiceImp emailService;
 
 
     @Autowired
-    public HomeController(ProductService productService, SubscriptionsService subscriptionsService, CategoryService categoryService) {
+    public HomeController(ProductService productService, SubscriptionsService subscriptionsService, CategoryService categoryService, EmailServiceImp emailService) {
         this.productService = productService;
         this.subscriptionsService = subscriptionsService;
         this.categoryService = categoryService;
-        //this.emailService = emailService;
+        this.emailService = emailService;
     }
 
     @GetMapping(path="/")
@@ -103,20 +103,17 @@ public class HomeController {
 
     @GetMapping(path = "/contact")
     public String contactUsForm (Model model){
-
-
-
-
+        model.addAttribute("email", new Email());
         return "contact";
     }
 
-    @RequestMapping(path = "/contact")
+    @PostMapping(path = "/contact")
     public String sendContactForm(@ModelAttribute Email email, Model model){
         model.addAttribute("email", email);
-        //emailService.sendSimpleMessage(email);
+
+        emailService.sendSimpleMessage(email);
         return "contact";
     }
-
 
 
 }

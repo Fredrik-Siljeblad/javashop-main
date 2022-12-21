@@ -1,5 +1,8 @@
 package se.systementor.supershoppen1.shop.model;
 
+import javax.persistence.Entity;
+
+
 public class Email {
 
     private String emailName; // Senders name
