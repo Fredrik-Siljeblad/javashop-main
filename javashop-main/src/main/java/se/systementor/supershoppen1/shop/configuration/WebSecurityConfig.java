@@ -48,6 +48,7 @@ public class WebSecurityConfig  {
 					.antMatchers("/","/products/**","/*", "/css/**", "/images/**", "/lib/**", "/scripts/**", "/static/**").permitAll()
 					.antMatchers("/admin/**").hasAnyRole("ADMIN")
 					.antMatchers("/user/**").hasAnyRole("USER")
+                    .antMatchers("/api/products**").permitAll()
 					.anyRequest().authenticated()
                 .and()
                     .formLogin()

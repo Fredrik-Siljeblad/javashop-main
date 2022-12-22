@@ -1,13 +1,18 @@
 package se.systementor.supershoppen1.shop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import se.systementor.supershoppen1.shop.model.Product;
 import se.systementor.supershoppen1.shop.services.ProductService;
 
-@Controller
+import java.util.Optional;
+
+@RestController
+@RequestMapping("api/products")
 public class ProductController {
     private ProductService productService;
 
@@ -16,21 +21,27 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @PostMapping("/addProduct")
-    public String addProduct(Product product, BindingResult result) {
-        if (result.hasErrors())
-            return "admin/add-product";
-
-        productService.save(product);
-        return "redirect:/admin/products";
+    @PostMapping
+    public ResponseEntity<Product> addProduct(Product product) {
+        return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
     }
 
     @PostMapping("/update/{id}")
-    public String updateProduct(@PathVariable("id") int productId, Product product, BindingResult result) {
-        if (result.hasErrors())
-            return "admin/update-product";
+    public ResponseEntity<Product> updateProduct(@PathVariable("id") int productId, Product product) {
+        return new ResponseEntity<>(productService.updateProduct(productId, product), HttpStatus.OK);
+    }
 
-        productService.updateProduct(productId, product);
-        return "redirect:/admin/products";
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable("id") Integer id) {
+        Optional<Product> maybeProduct = productService.get(id);
+
+        return maybeProduct.map(
+                product -> new ResponseEntity<>(product, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping
+    public ResponseEntity<Iterable<Product>> getAllProducts() {
+        return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
     }
 }
