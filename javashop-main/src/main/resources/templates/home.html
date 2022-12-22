@@ -9,7 +9,7 @@ th:replace="~{fragments/layouttemplate :: layout( ~{::body})}">
 <body>
 
 
-    <div class="section">
+    <div class="section" >
         <!-- container -->
         <div class="container">
             <!-- row -->
@@ -53,8 +53,8 @@ th:replace="~{fragments/layouttemplate :: layout( ~{::body})}">
                                 <div class="products-slick" data-nav="#slick-nav-1">
                                     <!-- product -->
                                     <tr th:each=" last10 : ${lastTen}">
-                                    <div class="product">
-                                        <div class="product-img">
+                                    <div class="product" style="max-height: 400px">
+                                        <div class="product-img" style="height: 145px">
                                             <img th:src="${(last10.getFilePath().substring(last10.getFilePath().length()-18)+'/'+ last10.getFileName())}" alt="">
                                             <div class="product-label">
                                                 <span class="sale" th:text="${last10.getCampaignPercentage()}"></span>
