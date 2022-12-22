@@ -88,7 +88,6 @@ public class AdminController {
     }
 
     @GetMapping(path="/admin/products/edit/{id}")
-
     String editProduct(@PathVariable("id") int productId, Model model)
     {
         Product product = productService.get(productId).orElse(null);

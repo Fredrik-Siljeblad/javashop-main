@@ -5,8 +5,11 @@ import se.systementor.supershoppen1.shop.model.Product;
 
 import java.math.BigDecimal;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 public interface ShoppingListService {
+
+
 
     void addProduct(Product product);
 
