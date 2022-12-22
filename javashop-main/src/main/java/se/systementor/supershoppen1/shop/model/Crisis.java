@@ -1,7 +1,7 @@
-package se.systementor.supershoppen1.shop.model.utils;
+package se.systementor.supershoppen1.shop.model;
+
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class Crisis {
 
     @JsonProperty("ID")

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layouttemplate :: layout( ~{::body})}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Krisinformation</title>
+</head>
+<body>
+
+<div class="container">
+
+<tr th:each=" crisis : ${last10crisis}">
+
+  <div class="single_info">
+    <div class="title" th:text="${crisis.getTitle()}">Title</div>
+
+  </div>
+
+</tr>
+
+</div>
+</body>
+</html>
