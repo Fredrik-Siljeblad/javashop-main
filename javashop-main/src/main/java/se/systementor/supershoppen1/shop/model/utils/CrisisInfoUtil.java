@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import se.systementor.supershoppen1.shop.model.Crisis;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class CrisisInfoUtil {
 
@@ -74,6 +75,8 @@ public class CrisisInfoUtil {
             Crisis newCrisis = objectMapper.readValue(jsonArray.get(i).toString(), Crisis.class);
             allCrisis.add(newCrisis);
         }
+        Collections.sort(allCrisis);
+
 
         for (int i = allCrisis.size() - 10; i < allCrisis.size(); i++) {
             lastTenCrisis.add(allCrisis.get(i));

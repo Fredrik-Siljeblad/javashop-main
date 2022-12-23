@@ -2,7 +2,7 @@ package se.systementor.supershoppen1.shop.model;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-public class Crisis {
+public class Crisis implements Comparable<Crisis> {
 
     @JsonProperty("ID")
     private int ID;
@@ -89,5 +89,11 @@ public class Crisis {
 
     public void setEmergency(boolean emergency) {
         Emergency = emergency;
+    }
+
+    @Override
+    public int compareTo(Crisis compareCrisis) {
+        int compareID = ((Crisis)compareCrisis).getID();
+        return this.ID - compareID;
     }
 }
