@@ -13,10 +13,15 @@ import java.util.ArrayList;
 public class CrisisController {
 
     CrisisInfoUtil crisisInfoUtil = new CrisisInfoUtil();
+    private HomeController homeController;
+
+    public CrisisController(HomeController homeController) {
+        this.homeController = homeController;
+    }
 
     @GetMapping("/crisis")
     String showCrisisInfo(Model model) throws IOException {
-
+        this.homeController.hideSubscription(model);
         ArrayList<Crisis> last10crisis = crisisInfoUtil.getCrisisInfo();
         model.addAttribute("last10crisis", last10crisis);
 

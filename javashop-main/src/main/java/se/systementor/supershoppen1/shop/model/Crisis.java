@@ -80,8 +80,11 @@ public class Crisis {
         Displaymode = displaymode;
     }
 
-    public boolean isEmergency() {
-        return Emergency;
+    public String getEmergency() {
+        if(Emergency == true) {
+            return "BRÅDSKANDE";
+        }
+        return null;
     }
 
     public void setEmergency(boolean emergency) {
