@@ -11,23 +11,24 @@ import java.net.URL;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.stereotype.Service;
 import se.systementor.supershoppen1.shop.model.Crisis;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
+@Service
 public class CrisisInfoUtil {
 
-    public CrisisInfoUtil() {
-    }
-
     private static HttpURLConnection connection;
+    ArrayList<Crisis> lastTenCrisis = new ArrayList<>();
 
     public ArrayList<Crisis> getCrisisInfo() throws IOException {
 
         BufferedReader bufferedReader;
         String line;
         StringBuffer result = new StringBuffer();
+
 
         try {
             URL url = new URL("https://api.krisinformation.se/v1/themes?format=json");
@@ -67,8 +68,6 @@ public class CrisisInfoUtil {
 
         Crisis crisis = new Crisis();
         ArrayList<Crisis> allCrisis = new ArrayList<>();
-        ArrayList<Crisis> lastTenCrisis = new ArrayList<>();
-
 
         for (int i = 0; i < jsonArray.length(); i++) {
             ObjectMapper objectMapper = new JsonMapper();
@@ -77,10 +76,35 @@ public class CrisisInfoUtil {
         }
         Collections.sort(allCrisis);
 
-
         for (int i = allCrisis.size() - 10; i < allCrisis.size(); i++) {
             lastTenCrisis.add(allCrisis.get(i));
         }
+        return lastTenCrisis;
+    }
+
+    Thread countdown = new Thread(new Runnable() {
+        @Override
+        public void run() {
+
+            for (int i = 3600; i >= 0; i--) {
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception e) {
+                    System.out.println("Error: " + e);
+                }
+            }
+            try {
+                getCrisisInfo();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            run();
+        }
+    });
+
+    public ArrayList<Crisis> repeatedlyGetCrisis() throws IOException {
+        getCrisisInfo();
+        countdown.start();
         return lastTenCrisis;
     }
 

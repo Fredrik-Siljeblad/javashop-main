@@ -1,5 +1,6 @@
 package se.systementor.supershoppen1.shop.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import se.systementor.supershoppen1.shop.model.Category;
+import se.systementor.supershoppen1.shop.model.Crisis;
 import se.systementor.supershoppen1.shop.model.Product;
 import se.systementor.supershoppen1.shop.model.utils.CategoryAndProducts;
+import se.systementor.supershoppen1.shop.model.utils.CrisisInfoUtil;
 import se.systementor.supershoppen1.shop.model.utils.FunctionsUtils;
 import se.systementor.supershoppen1.shop.model.utils.LatestProduct;
 import se.systementor.supershoppen1.shop.services.CategoryService;
@@ -25,19 +28,22 @@ public class HomeController {
     private  ProductService productService;
     private SubscriptionsService subscriptionsService;
     private CategoryService categoryService;
+    private CrisisInfoUtil crisisInfoUtil;
 
 
     @Autowired
-    public HomeController(ProductService productService, SubscriptionsService subscriptionsService, CategoryService categoryService) {
+    public HomeController(ProductService productService, SubscriptionsService subscriptionsService,
+                          CategoryService categoryService, CrisisInfoUtil crisisInfoUtil) {
         this.productService = productService;
         this.subscriptionsService = subscriptionsService;
         this.categoryService = categoryService;
+        this.crisisInfoUtil = crisisInfoUtil;
     }
 
     @GetMapping(path="/")
-    String empty(Model model)
-    {
+    String empty(Model model) throws IOException {
         hideSubscription(model);
+        showCrisisInfo(model);
 
         List<Category> categories = categoryService.getAll();
         List<Product> productList = productService.getAll();
@@ -61,6 +67,11 @@ public class HomeController {
     } else {
         model.addAttribute("hideSubscription", false);
     }
+    }
+
+    public void showCrisisInfo(Model model) throws IOException {
+        ArrayList<Crisis> last10crisis = crisisInfoUtil.repeatedlyGetCrisis();
+        model.addAttribute("last10crisis", last10crisis);
     }
 
     private List<Product> getProducts(List<Product> productList) {
