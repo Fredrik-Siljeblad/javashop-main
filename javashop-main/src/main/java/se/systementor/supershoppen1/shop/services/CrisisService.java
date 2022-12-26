@@ -1,4 +1,4 @@
-package se.systementor.supershoppen1.shop.model.utils;
+package se.systementor.supershoppen1.shop.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -18,17 +18,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 @Service
-public class CrisisInfoUtil {
+public class CrisisService {
 
-    private static HttpURLConnection connection;
+    private HttpURLConnection connection;
     ArrayList<Crisis> lastTenCrisis = new ArrayList<>();
 
-    public ArrayList<Crisis> getCrisisInfo() throws IOException {
+    public void getCrisisInfo() throws IOException {
 
         BufferedReader bufferedReader;
         String line;
         StringBuffer result = new StringBuffer();
-
 
         try {
             URL url = new URL("https://api.krisinformation.se/v1/themes?format=json");
@@ -79,14 +78,13 @@ public class CrisisInfoUtil {
         for (int i = allCrisis.size() - 10; i < allCrisis.size(); i++) {
             lastTenCrisis.add(allCrisis.get(i));
         }
-        return lastTenCrisis;
     }
 
     Thread countdown = new Thread(new Runnable() {
         @Override
         public void run() {
 
-            for (int i = 3600; i >= 0; i--) {
+            for (int i = 3600; i > 0; i--) {
                 try {
                     Thread.sleep(1000);
                 } catch (Exception e) {

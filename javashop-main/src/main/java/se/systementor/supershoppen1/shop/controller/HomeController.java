@@ -15,32 +15,29 @@ import org.springframework.web.bind.annotation.*;
 import se.systementor.supershoppen1.shop.model.Category;
 import se.systementor.supershoppen1.shop.model.Crisis;
 import se.systementor.supershoppen1.shop.model.Product;
-import se.systementor.supershoppen1.shop.model.utils.CategoryAndProducts;
-import se.systementor.supershoppen1.shop.model.utils.CrisisInfoUtil;
-import se.systementor.supershoppen1.shop.model.utils.FunctionsUtils;
-import se.systementor.supershoppen1.shop.model.utils.LatestProduct;
+import se.systementor.supershoppen1.shop.services.CrisisService;
 import se.systementor.supershoppen1.shop.services.CategoryService;
 import se.systementor.supershoppen1.shop.services.ProductService;
 import se.systementor.supershoppen1.shop.services.SubscriptionsService;
 
 @Controller
 public class HomeController {
-    private  ProductService productService;
+    private ProductService productService;
     private SubscriptionsService subscriptionsService;
     private CategoryService categoryService;
-    private CrisisInfoUtil crisisInfoUtil;
+    private CrisisService crisisService;
 
 
     @Autowired
     public HomeController(ProductService productService, SubscriptionsService subscriptionsService,
-                          CategoryService categoryService, CrisisInfoUtil crisisInfoUtil) {
+                          CategoryService categoryService, CrisisService crisisService) {
         this.productService = productService;
         this.subscriptionsService = subscriptionsService;
         this.categoryService = categoryService;
-        this.crisisInfoUtil = crisisInfoUtil;
+        this.crisisService = crisisService;
     }
 
-    @GetMapping(path="/")
+    @GetMapping(path = "/")
     String empty(Model model) throws IOException {
         hideSubscription(model);
         showCrisisInfo(model);
@@ -50,27 +47,27 @@ public class HomeController {
 
         productList = getProducts(productList);
 
-        model.addAttribute("categories",categories);
-        model.addAttribute("lastTen",productList);
+        model.addAttribute("categories", categories);
+        model.addAttribute("lastTen", productList);
 
         return "home";
     }
 
     public void hideSubscription(Model model) {
 
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    Object ud = auth.getPrincipal();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Object ud = auth.getPrincipal();
         if (ud instanceof UserDetails) {
-        String user = ((UserDetails)ud).getUsername();
-        boolean va2 = subscriptionsService.isSubscriber(user);
-        model.addAttribute("hideSubscription", va2);
-    } else {
-        model.addAttribute("hideSubscription", false);
-    }
+            String user = ((UserDetails) ud).getUsername();
+            boolean va2 = subscriptionsService.isSubscriber(user);
+            model.addAttribute("hideSubscription", va2);
+        } else {
+            model.addAttribute("hideSubscription", false);
+        }
     }
 
     public void showCrisisInfo(Model model) throws IOException {
-        ArrayList<Crisis> last10crisis = crisisInfoUtil.repeatedlyGetCrisis();
+        ArrayList<Crisis> last10crisis = crisisService.repeatedlyGetCrisis();
         model.addAttribute("last10crisis", last10crisis);
     }
 
@@ -78,40 +75,35 @@ public class HomeController {
         for (Product product : productList) {
             Category category = categoryService.get(product.getCategoryId());
             product.setCategoryName(category.getName());
-            if(product.getFileName() == null){
+            if (product.getFileName() == null) {
                 product.setFilePath(category.getFilePath());
                 product.setFileName(category.getFileName());
             }
         }
 
-        if(productList.size() >10){
-            productList = productList.subList(productList.size() -10, productList.size());
+        if (productList.size() > 10) {
+            productList = productList.subList(productList.size() - 10, productList.size());
         }
         return productList;
     }
 
     @RequestMapping("/products/{id}")
-    String homePage(Model model, @PathVariable("id") int id){
+    String homePage(Model model, @PathVariable("id") int id) {
 
         List<Category> categories = categoryService.getAll();
         List<Product> latestProducts = new ArrayList<>();
 
-        if (id != 0){
+        if (id != 0) {
             latestProducts = productService.findAllProductsByCategoryId(id);
-        }else {
+        } else {
             latestProducts = productService.getAll();
         }
 
         latestProducts = getProducts(latestProducts);
-        model.addAttribute("categories",categories);
-        model.addAttribute("lastTen",latestProducts);
+        model.addAttribute("categories", categories);
+        model.addAttribute("lastTen", latestProducts);
         return "home";
     }
-
-
-
-
-
 
 
 }
