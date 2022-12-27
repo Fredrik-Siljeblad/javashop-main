@@ -21,9 +21,11 @@ import java.util.Collections;
 public class CrisisService {
 
     private HttpURLConnection connection;
-    ArrayList<Crisis> lastTenCrisis = new ArrayList<>();
 
-    public void getCrisisInfo() throws IOException {
+    private ArrayList<Crisis> lastTenCrisis = new ArrayList<>();
+
+    private void getLatestCrisisInfo() throws IOException {
+
 
         BufferedReader bufferedReader;
         String line;
@@ -65,7 +67,6 @@ public class CrisisService {
         JSONArray jsonArray = jsonObject.getJSONArray("ThemeList");
 
 
-        Crisis crisis = new Crisis();
         ArrayList<Crisis> allCrisis = new ArrayList<>();
 
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -80,9 +81,15 @@ public class CrisisService {
         }
     }
 
-    Thread countdown = new Thread(new Runnable() {
+    public Thread countdown = new Thread(new Runnable() {
         @Override
         public void run() {
+
+            try {
+                getLatestCrisisInfo();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
             for (int i = 3600; i > 0; i--) {
                 try {
@@ -91,19 +98,16 @@ public class CrisisService {
                     System.out.println("Error: " + e);
                 }
             }
-            try {
-                getCrisisInfo();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
             run();
         }
     });
 
-    public ArrayList<Crisis> repeatedlyGetCrisis() throws IOException {
-        getCrisisInfo();
-        countdown.start();
-        return lastTenCrisis;
+    public ArrayList<Crisis> getLastTenCrisis() {
+        if (lastTenCrisis.isEmpty()) {
+            countdown.start();
+            return lastTenCrisis;
+        } else {
+            return lastTenCrisis;
+        }
     }
-
 }

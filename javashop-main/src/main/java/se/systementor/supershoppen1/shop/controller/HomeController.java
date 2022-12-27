@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import se.systementor.supershoppen1.shop.model.Category;
+import se.systementor.supershoppen1.shop.model.CategoryRepository;
 import se.systementor.supershoppen1.shop.model.Crisis;
 import se.systementor.supershoppen1.shop.model.Product;
 import se.systementor.supershoppen1.shop.services.CrisisService;
@@ -26,22 +27,26 @@ public class HomeController {
     private SubscriptionsService subscriptionsService;
     private CategoryService categoryService;
     private CrisisService crisisService;
+    private final CategoryRepository categoryRepository;
 
 
     @Autowired
     public HomeController(ProductService productService, SubscriptionsService subscriptionsService,
-                          CategoryService categoryService, CrisisService crisisService) {
+                          CategoryService categoryService, CrisisService crisisService,
+                          CategoryRepository categoryRepository) {
         this.productService = productService;
         this.subscriptionsService = subscriptionsService;
         this.categoryService = categoryService;
         this.crisisService = crisisService;
+        this.categoryRepository = categoryRepository;
     }
 
     @GetMapping(path = "/")
     String empty(Model model) throws IOException {
         hideSubscription(model);
-        showCrisisInfo(model);
+        //showCrisisInfo(model);
 
+        List<Crisis> last10Crisis = crisisService.getLastTenCrisis();
         List<Category> categories = categoryService.getAll();
         List<Product> productList = productService.getAll();
 
@@ -49,6 +54,7 @@ public class HomeController {
 
         model.addAttribute("categories", categories);
         model.addAttribute("lastTen", productList);
+        model.addAttribute("last10Crisis", last10Crisis);
 
         return "home";
     }
@@ -64,11 +70,6 @@ public class HomeController {
         } else {
             model.addAttribute("hideSubscription", false);
         }
-    }
-
-    public void showCrisisInfo(Model model) throws IOException {
-        ArrayList<Crisis> last10crisis = crisisService.repeatedlyGetCrisis();
-        model.addAttribute("last10crisis", last10crisis);
     }
 
     private List<Product> getProducts(List<Product> productList) {
