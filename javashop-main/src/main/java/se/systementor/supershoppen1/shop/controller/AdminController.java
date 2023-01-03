@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import se.systementor.supershoppen1.shop.model.Category;
@@ -30,7 +31,7 @@ import se.systementor.supershoppen1.shop.services.ProductService;
 @Controller
 public class AdminController {
 
-    private final  ProductService productService;
+    private final ProductService productService;
     private NewsletterService newsletterService;
     private final CategoryService categoryService;
 
@@ -120,6 +121,24 @@ public class AdminController {
     public String editCategory(@ModelAttribute ("category") Category category,@RequestParam("image") MultipartFile multipartFile,@PathVariable Integer id) throws IOException {
         categoryService.editCategory(id,category,multipartFile);
         return "redirect:/admin/categories";
+    }
+
+    @PostMapping("/addProduct")
+    public String addProduct(Product product, BindingResult result) {
+        if (result.hasErrors())
+            return "admin/add-product";
+
+        productService.save(product);
+        return "redirect:/admin/products";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateProduct(@PathVariable("id") int productId, Product product, BindingResult result) {
+        if (result.hasErrors())
+            return "admin/update-product";
+
+        productService.updateProduct(productId, product);
+        return "redirect:/admin/products";
     }
 
 

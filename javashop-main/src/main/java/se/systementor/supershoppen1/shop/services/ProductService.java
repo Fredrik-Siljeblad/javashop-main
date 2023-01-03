@@ -32,8 +32,8 @@ public class ProductService {
         return repository.findById(id);
     }
 
-    public void save(Product product1) {
-        repository.save(product1);
+    public Product save(Product product1) {
+        return repository.save(product1);
     }
 
     public List<Product> findAllProductsByCategoryId(Integer id){
@@ -46,6 +46,10 @@ public class ProductService {
             throw new IllegalArgumentException();
         updatedProduct.setId(productId);
         return repository.save(updatedProduct);
+    }
+
+    public List<Product> getAllProducts() {
+        return repository.findAll();
     }
 }
 

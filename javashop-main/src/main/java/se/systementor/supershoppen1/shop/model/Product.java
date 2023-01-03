@@ -5,38 +5,29 @@ import javax.persistence.*;
 
 @Entity
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     private String name;
     private int price;
     private int categoryId;
     private String categoryName;
 
-    public String getCategoryName() {
-        return categoryName;
-    }
-
     private String filePath;
+
     private String fileName;
 
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-
     private int rating;
+
     private int campaignPercentage;
 
-
-
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
     private int stockLevel;
+
     private String description;
 
     public Integer getId() {
         return id;
       }
-
       public void setId(Integer id) {
         this.id = id;
       }
@@ -55,6 +46,7 @@ public class Product {
     public void setPrice(int d) {
         price = d;
     }
+
     public int getPrice() {
         return price;
     }
@@ -65,7 +57,6 @@ public class Product {
     public int getCategory() {
         return categoryId;
     }
-
 
     public void setStockLevel(int i) {
         stockLevel = i;
@@ -79,10 +70,10 @@ public class Product {
     public void setDescription(String string) {
         description = string;
     }
+
     public String getDescription() {
         return description;
     }
-
 
     public int getCampaignPrice() {
         return (price - ((price * campaignPercentage)/100));
@@ -102,6 +93,14 @@ public class Product {
 
     public void setCampaignPercentage(int campaignPercentage) {
         this.campaignPercentage = campaignPercentage;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
     }
 
 
