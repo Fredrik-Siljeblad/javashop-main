@@ -15,7 +15,6 @@ public class ProductService {
     private final ProductRepository repository;
 
     ProductService(ProductRepository rep) {
-        super();
         this.repository = rep;
     }
 
@@ -40,12 +39,14 @@ public class ProductService {
      return repository.findProductByCategoryId(id);
     }
 
-    public Product updateProduct(int productId, Product updatedProduct) {
-        var product = repository.findById(productId);
-        if (product == null)
-            throw new IllegalArgumentException();
-        updatedProduct.setId(productId);
-        return repository.save(updatedProduct);
+    public Product updateProduct(Integer productId, Product updatedProduct) {
+        var product = get(productId);
+        if (product.isPresent()) {
+            updatedProduct.setId(productId);
+            return repository.save(updatedProduct);
+        }
+
+        throw new IllegalArgumentException();
     }
 
     public List<Product> getAllProducts() {
