@@ -16,7 +16,7 @@ public class NewsletterService {
     private final NewsletterRepository newsletterRepository;
     private final SubscriptionsService subscriptionsService;
 
-    NewsletterService(NewsletterRepository newsletterRepository, SubscriptionsService subscriptionsService) {
+    public NewsletterService(NewsletterRepository newsletterRepository, SubscriptionsService subscriptionsService) {
         super();
         this.newsletterRepository = newsletterRepository;
         this.subscriptionsService = subscriptionsService;    }
@@ -40,7 +40,6 @@ public class NewsletterService {
     }
 
     public Newsletter getById(Integer id){
-
         Optional<Newsletter> nl = newsletterRepository.findById(id);
         if(nl.isEmpty()) {
             return null;
@@ -52,7 +51,6 @@ public class NewsletterService {
 
     public String send(Integer id){
         Newsletter nl = getById(id);
-
         if(nl.getSentDate() != null){
             return "Newsletter was already sent " + nl.getSentDate().toString() +".";
         }else{
