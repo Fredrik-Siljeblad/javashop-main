@@ -25,7 +25,7 @@ public class CrisisService {
     private ArrayList<Crisis> lastTenCrisis = new ArrayList<>();
     private long fetchingTime = 0;
     private long currentTime;
-    private long timeDifferance;
+    private long timeDifferance = 0;
 
 
     public ArrayList<Crisis> getLatestCrisisInfo() throws IOException {
@@ -45,7 +45,6 @@ public class CrisisService {
             try {
                 URL url = new URL("https://api.krisinformation.se/v1/themes?format=json");
                 connection = (HttpURLConnection) url.openConnection();
-
                 connection.setRequestMethod("GET");
                 connection.setConnectTimeout(5000);
                 connection.setReadTimeout(5000);
@@ -97,6 +96,13 @@ public class CrisisService {
         } else {
             return lastTenCrisis;
         }
+    }
+
+    public boolean approvedTimeInterval() {
+        if (timeDifferance < 3600000) {
+            return true;
+        }
+        return false;
     }
 
 }
