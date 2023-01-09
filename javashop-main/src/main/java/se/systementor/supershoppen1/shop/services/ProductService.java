@@ -14,7 +14,7 @@ public class ProductService {
 
     private final ProductRepository repository;
 
-    ProductService(ProductRepository rep) {
+    public ProductService(ProductRepository rep) {
         super();
         this.repository = rep;
     }

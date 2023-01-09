@@ -55,7 +55,7 @@ public class CategoryService {
 
     public Category addCategory (Category categoryToAdd, MultipartFile multipartFile) throws IOException {
         String uploadDir = "src/main/resources/static/images/Categories";
-        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
         categoryToAdd.setFilePath(uploadDir);
         categoryToAdd.setFileName(fileName);
         FileUploadUtil.saveFile(uploadDir,fileName,multipartFile);

@@ -16,7 +16,7 @@ public class SubscriptionsService {
 
     private final SubscriptionsRepository repository;
 
-    SubscriptionsService(SubscriptionsRepository rep) {
+    public SubscriptionsService(SubscriptionsRepository rep) {
         super();
         this.repository = rep;
     }
