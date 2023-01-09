@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.IOException;
 
 class CrisisServiceTest {
     private CrisisService sut;
@@ -16,11 +15,21 @@ class CrisisServiceTest {
     }
 
     @Test
-    void getLatestCrisisInfo() throws IOException {
+    void shouldBeOKIfTimeIntervalIsUnderOrEqual1Hour() {
         //ARRANGE
 
         //ACT
         boolean result = sut.approvedTimeInterval();
+        //ASSERT
+        assertTrue(result);
+    }
+
+    @Test
+    void shouldBeOKIfConnectionIsUnder300() {
+        //ARRANGE
+
+        //ACT
+        boolean result = sut.approvedConnectionStatus();
         //ASSERT
         assertTrue(result);
     }

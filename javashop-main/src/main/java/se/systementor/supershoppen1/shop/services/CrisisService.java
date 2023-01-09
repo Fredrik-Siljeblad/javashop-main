@@ -26,6 +26,7 @@ public class CrisisService {
     private long fetchingTime = 0;
     private long currentTime;
     private long timeDifferance = 0;
+    private int status;
 
 
     public ArrayList<Crisis> getLatestCrisisInfo() throws IOException {
@@ -49,7 +50,7 @@ public class CrisisService {
                 connection.setConnectTimeout(5000);
                 connection.setReadTimeout(5000);
 
-                int status = connection.getResponseCode();
+                status = connection.getResponseCode();
                 System.out.println(status);
 
                 if (status > 299) {
@@ -105,4 +106,10 @@ public class CrisisService {
         return false;
     }
 
+    public boolean approvedConnectionStatus() {
+        if(status < 300) {
+            return true;
+        }
+        return false;
+    }
 }
