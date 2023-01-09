@@ -44,9 +44,8 @@ public class HomeController {
     @GetMapping(path = "/")
     String empty(Model model) throws IOException {
         hideSubscription(model);
-        //showCrisisInfo(model);
 
-        List<Crisis> last10Crisis = crisisService.getLastTenCrisis();
+        List<Crisis> last10Crisis = crisisService.getLatestCrisisInfo();
         List<Category> categories = categoryService.getAll();
         List<Product> productList = productService.getAll();
 
