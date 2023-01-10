@@ -89,6 +89,7 @@ public class CrisisService {
                 allCrisis.add(newCrisis);
             }
             Collections.sort(allCrisis);
+            lastTenCrisis.clear();
 
             for (int i = allCrisis.size() - 10; i < allCrisis.size(); i++) {
                 lastTenCrisis.add(allCrisis.get(i));
